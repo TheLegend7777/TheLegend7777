@@ -1,4 +1,4 @@
-"""Motion design 15s — Mercado financeiro 26/10/2026 x Terra.
+"""Motion design 15s — Mercado financeiro 26/10/2026 x Imóveis.
 Gera frames (PIL), efeitos sonoros sintetizados (numpy) e junta com ffmpeg.
 Uso: python3 render.py  ->  out/mercado_terra_15s.mp4
 """
@@ -11,11 +11,13 @@ W, H, FPS, DUR = 1080, 1920, 30, 15.0
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out")
 FRAMES = os.path.join(OUT, "frames")
+LOGO = os.path.join(HERE, "assets", "logo.png")
+HANDLE = "@imobiliariavcr"
 
 # Paleta — troque aqui pelos hex da sua paleta
 BG = (0, 0, 0)
 RED = (255, 45, 45)
-GREEN = (0, 214, 110)
+GREEN = (142, 182, 83)  # #8EB653, verde do logo
 WHITE = (255, 255, 255)
 GRAY = (140, 140, 140)
 DARK = (22, 22, 22)
@@ -165,7 +167,7 @@ def s_tesouro(img, d, t, dur):
     label(d, 330, "TESOURO NACIONAL", RED, p(t, 0, .25))
     slide_text(d, W / 2, 470, "LEILÕES DE", F(80), WHITE, t, .1)
     slide_text(d, W / 2, 560, "TÍTULOS", F(80), WHITE, t, .2)
-    for i, (cx, tag) in enumerate([(240, "PREFIXADO"), (540, "IPCA+"), (840, "PREFIXADO")]):
+    for i, (cx, tag) in enumerate([(240, "LEILÃO"), (540, "LEILÃO"), (840, "LEILÃO")]):
         k = eo(p(t, .25 + i * .12, .6 + i * .12))
         doc(img, cx, 870 + 80 * (1 - k), k, tag)
     d = ImageDraw.Draw(img, "RGBA")
@@ -184,7 +186,7 @@ def s_tesouro(img, d, t, dur):
             L.putalpha(alpha)
         img.paste(L, (int(W / 2 - L.width / 2), int(880 - L.height / 2)), L)
         d = ImageDraw.Draw(img, "RGBA")
-    slide_text(d, W / 2, 1230, "prefixados e atrelados à inflação", F(48, "Bold"), WHITE, t, 1.2, dy=30)
+    slide_text(d, W / 2, 1230, "títulos públicos do Tesouro", F(48, "Bold"), WHITE, t, 1.2, dy=30)
     slide_text(d, W / 2, 1300, "previstos para 27 e 29 de outubro", F(48, "Bold"), GRAY, t, 1.3, dy=30)
     footnote(d, p(t, .4, .7))
 
@@ -192,7 +194,7 @@ def s_moeda(img, d, t, dur):
     slide_text(d, W / 2, 470, "Quando a moeda", F(92, "ExtraBold"), WHITE, t, 0)
     slide_text(d, W / 2, 575, "perde valor,", F(92, "ExtraBold"), WHITE, t, .1)
     # cédula encolhendo e ficando vermelha (ilustração)
-    k = eio(p(t, .5, 1.6))
+    k = eio(p(t, .4, 1.3))
     a = p(t, .2, .4)
     c = mix(GREEN, RED, k)
     sc = 1 - .3 * k
@@ -207,43 +209,56 @@ def s_moeda(img, d, t, dur):
     img.paste(L, (int(cx - 350), int(cy - 200)), L)
     d = ImageDraw.Draw(img, "RGBA")
     for i in range(3):
-        kk = p(t, .7 + i * .15, 1.3 + i * .15)
+        kk = p(t, .55 + i * .12, 1.1 + i * .12)
         if 0 < kk < 1:
             tri(d, cx - 260 + i * 260, 1100 + 120 * kk, 40, False, RED, 1 - kk)
-    slide_text(d, W / 2, 1360, "quem tem dinheiro parado", F(70, "ExtraBold"), RED, t, 1.0)
-    glow(img, (W / 2, 1460), "perde junto.", F(110), RED, eo(p(t, 1.2, 1.5)), r=18)
+    slide_text(d, W / 2, 1360, "quem tem dinheiro parado", F(70, "ExtraBold"), RED, t, .8)
+    glow(img, (W / 2, 1460), "perde junto.", F(110), RED, eo(p(t, 1.0, 1.3)), r=18)
 
-def s_terra(img, d, t, dur):
+def building(d, x0, x1, top, base, k, a, roof=False):
+    y = base - (base - top) * k
+    if roof:
+        mid = (x0 + x1) / 2
+        d.line([(x0 - 15, y + 70 * k), (mid, y), (x1 + 15, y + 70 * k)], fill=col(GREEN, a), width=6)
+        d.rectangle([x0, y + 70 * k, x1, base], outline=col(GREEN, a), width=5)
+        dw = (x1 - x0) * .28
+        if k > .9:
+            d.rectangle([mid - dw / 2, base - 110, mid + dw / 2, base], outline=col(GREEN, a), width=5)
+        return
+    d.rectangle([x0, y, x1, base], outline=col(GREEN, a), width=5)
+    if k > .6:
+        cols = max(2, int((x1 - x0) // 55))
+        cw = (x1 - x0) / cols
+        for r in range(int((base - y - 30) // 60)):
+            for c in range(cols):
+                wx, wy = x0 + c * cw + cw * .3, y + 30 + r * 60
+                d.rectangle([wx, wy, wx + cw * .4, wy + 26], fill=col(GREEN, a * .55))
+
+def s_imoveis(img, d, t, dur):
     # varredura verde de transição
     k = eio(p(t, 0, .35))
     if k < 1:
         d.rectangle([0, H * (1 - k) - 40, W, H * (1 - k) + 40], fill=col(GREEN, 1 - k))
-    slide_text(d, W / 2, 380, "Terra é diferente.", F(66, "ExtraBold"), WHITE, t, .1, dy=30)
-    glow(img, (W / 2, 530), "TERRA", F(220), GREEN, eo(p(t, .15, .45)), r=26)
+    slide_text(d, W / 2, 380, "Imóveis são diferentes.", F(66, "ExtraBold"), WHITE, t, .1, dy=30)
+    glow(img, (W / 2, 530), "IMÓVEIS", F(180), GREEN, eo(p(t, .15, .45)), r=26)
     d = ImageDraw.Draw(img, "RGBA")
-    # ilustração: sol, horizonte e linhas de plantio em perspectiva
-    a = p(t, .3, .55)
-    hy, vx = 800, W / 2
-    sk = eo(p(t, .3, .9))
-    d.ellipse([vx + 160 - 55, hy - 60 - 110 * sk, vx + 160 + 55, hy + 50 - 110 * sk], outline=col(GREEN, a), width=6)
-    d.line([(90, hy), (W - 90, hy)], fill=col(GREEN, a), width=5)
-    rows = 9
-    gk = eo(p(t, .35, .95))
-    for i in range(rows):
-        bx = 90 + (W - 180) * i / (rows - 1)
-        ex = vx + (bx - vx) * .15
-        d.line([(ex, hy), (ex + (bx - ex) * gk, hy + 270 * gk)], fill=col(GREEN, a * .85), width=4)
-    d.line([(90, hy + 270), (W - 90, hy + 270)], fill=col(GREEN, a * gk), width=4)
+    # ilustração: skyline de prédios e casa
+    a = p(t, .3, .5)
+    base = 1060
+    d.line([(80, base), (W - 80, base)], fill=col(GREEN, a), width=5)
+    for i, (x0, x1, top, roof) in enumerate([(120, 300, 760, False), (330, 520, 660, False), (550, 700, 820, False),
+                                            (730, 960, 860, True)]):
+        building(d, x0, x1, top, base, eo(p(t, .35 + i * .1, .8 + i * .1)), a, roof)
     items = ["Bem físico e limitado", "Não depende de pregão", "Nem de câmbio", "Tende a acompanhar a inflação"]
     for i, s in enumerate(items):
-        t0 = .55 + i * .22
+        t0 = .6 + i * .3
         kk = eo(p(t, t0, t0 + .3))
         y = 1210 + i * 105
         x0 = 150 + 40 * (1 - kk)
         d.ellipse([x0 - 30, y - 30, x0 + 30, y + 30], fill=col(GREEN, kk))
         d.line([(x0 - 14, y), (x0 - 3, y + 12), (x0 + 16, y - 12)], fill=col(BG, kk), width=7)
         text(d, (x0 + 60, y), s, F(52, "Bold"), WHITE, kk, "lm")
-    text(d, (W / 2, 1680), "Uma das formas mais antigas de proteger patrimônio.", F(34, "SemiBold"), GRAY, p(t, 1.4, 1.7))
+    text(d, (W / 2, 1680), "Uma das formas mais antigas de proteger patrimônio.", F(34, "SemiBold"), GRAY, p(t, 1.9, 2.2))
 
 def s_contato(img, d, t, dur):
     k = eo(p(t, 0, .4))
@@ -253,11 +268,26 @@ def s_contato(img, d, t, dur):
     d = ImageDraw.Draw(img, "RGBA")
     slide_text(d, W / 2, 1140, "CRECI 266.761-F", F(52, "SemiBold"), GRAY, t, .4, dy=30)
     d.line([(W / 2 - 300 * k, 1230), (W / 2 + 300 * k, 1230)], fill=col(GREEN, 1), width=6)
-    text(d, (W / 2, 1340), "Proteja seu patrimônio com terra.", F(46, "Bold"), GREEN, p(t, .6, .9))
+    text(d, (W / 2, 1340), "Proteja seu patrimônio com imóveis.", F(46, "Bold"), GREEN, p(t, .6, .9))
 
-SCENES = [(0.0, 2.0, s_intro), (2.0, 5.0, s_dolar), (5.0, 7.5, s_ibov), (7.5, 9.6, s_tesouro),
-          (9.6, 11.6, s_moeda), (11.6, 13.7, s_terra), (13.7, 15.0, s_contato)]
-IMPACTS = [2.0 + 1.7, 5.0 + .8, 7.5 + 1.13]  # tremor de câmera
+# início de cada cena (s); a de imóveis fica mais longa para dar tempo de leitura
+T_DOL, T_IBV, T_TES, T_MOE, T_IMO, T_CON = 1.8, 4.5, 6.8, 8.7, 10.5, 13.7
+SCENES = [(0.0, T_DOL, s_intro), (T_DOL, T_IBV, s_dolar), (T_IBV, T_TES, s_ibov), (T_TES, T_MOE, s_tesouro),
+          (T_MOE, T_IMO, s_moeda), (T_IMO, T_CON, s_imoveis), (T_CON, DUR, s_contato)]
+IMPACTS = [T_DOL + 1.7, T_IBV + .8, T_TES + 1.13]  # tremor de câmera
+
+_wm = None
+def watermark(img):
+    """Logo + @ discretos no canto superior direito, baixa opacidade."""
+    global _wm
+    if _wm is None:
+        L = Image.new("RGBA", (W, 200), (0, 0, 0, 0))
+        logo = Image.open(LOGO).convert("RGBA").resize((84, 84), Image.LANCZOS)
+        L.paste(logo, (W - 60 - 84, 50), logo)
+        ImageDraw.Draw(L).text((W - 60 - 84 - 18, 92), HANDLE, font=F(30, "SemiBold"), fill=WHITE, anchor="rm")
+        L.putalpha(L.split()[3].point(lambda v: int(v * .28)))
+        _wm = L
+    img.paste(_wm, (0, 0), _wm)
 
 def frame(i):
     t = i / FPS
@@ -278,6 +308,7 @@ def frame(i):
             amp = 18 * (1 - (t - ti) / .25)
             dx, dy = amp * math.sin(t * 90), amp * math.cos(t * 70)
             img = img.transform(img.size, Image.AFFINE, (1, 0, dx, 0, 1, dy), fillcolor=BG)
+    watermark(img)
     img.save(os.path.join(FRAMES, f"{i:04d}.png"), compress_level=1)
 
 # ---------- efeitos sonoros ----------
@@ -336,23 +367,29 @@ def audio(path):
     add(.65, whoosh(.3, 800, 6000), .4)
     for i in range(4): add(1.0 + i * .25, beep(1200, .06, .12))
     # dólar
-    add(1.85, whoosh(.5), .6); add(2.2, sweep(220, 880, 1.5, .18))
-    for i in range(12): add(2.2 + i * .125, tick(1800 + i * 80), .8)
-    add(3.7, impact(48, .9), 1.0); add(3.7, chime([300, 450], .5, .12))
+    D = T_DOL
+    add(D - .15, whoosh(.5), .6); add(D + .2, sweep(220, 880, 1.5, .18))
+    for i in range(12): add(D + .2 + i * .125, tick(1800 + i * 80), .8)
+    add(D + 1.7, impact(48, .9), 1.0); add(D + 1.7, chime([300, 450], .5, .12))
     # ibovespa
-    add(4.85, whoosh(.5, 3000, 300), .6); add(5.1, sweep(700, 120, .7, .2)); add(5.8, impact(40, .9), 1.0)
-    for i in range(5): add(5.8 + i * .3, beep(880 if i % 2 == 0 else 660, .2, .22))
+    B = T_IBV
+    add(B - .15, whoosh(.5, 3000, 300), .6); add(B + .1, sweep(700, 120, .7, .2)); add(B + .8, impact(40, .9), 1.0)
+    for i in range(5): add(B + .8 + i * .28, beep(880 if i % 2 == 0 else 660, .2, .22))
     # tesouro
-    add(7.35, whoosh(.45), .55)
-    for i in range(3): add(7.75 + i * .12, paper(), .9)
-    add(8.63, impact(60, .7), 1.0); add(8.63, lowpass(np.random.randn(int(SR * .12)), 2500) * env(int(SR * .12), .001, .03), 1.2)
+    T = T_TES
+    add(T - .15, whoosh(.45), .55)
+    for i in range(3): add(T + .25 + i * .12, paper(), .9)
+    add(T + 1.13, impact(60, .7), 1.0); add(T + 1.13, lowpass(np.random.randn(int(SR * .12)), 2500) * env(int(SR * .12), .001, .03), 1.2)
     # moeda
-    add(9.45, whoosh(.45, 200, 2000), .45); add(10.1, sweep(500, 180, 1.1, .16)); add(10.85, impact(45, .6), .6)
-    # terra (positivo)
-    add(11.5, whoosh(.5, 600, 7000), .55); add(11.7, chime([523.25, 659.25, 783.99, 1046.5], 1.6, .2))
-    for i in range(4): add(12.2 + i * .22, chime([1046.5 + i * 130], .3, .18))
+    M = T_MOE
+    add(M - .15, whoosh(.45, 200, 2000), .45); add(M + .35, sweep(500, 180, 1.0, .16)); add(M + 1.05, impact(45, .6), .6)
+    # imóveis (positivo)
+    V = T_IMO
+    add(V - .1, whoosh(.5, 600, 7000), .55); add(V + .1, chime([523.25, 659.25, 783.99, 1046.5], 1.6, .2))
+    for i in range(4): add(V + .6 + i * .3, chime([1046.5 + i * 130], .3, .18))
     # contato
-    add(13.6, whoosh(.4, 400, 5000), .4); add(13.85, chime([783.99, 1174.66, 1567.98], 1.3, .2))
+    C = T_CON
+    add(C - .1, whoosh(.4, 400, 5000), .4); add(C + .15, chime([783.99, 1174.66, 1567.98], 1.3, .2))
     buf = buf[:int(SR * DUR)]
     buf = np.tanh(buf * 1.2) * .8
     with wave.open(path, "wb") as w:
