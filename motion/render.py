@@ -1,13 +1,13 @@
-"""Motion design 15s — Mercado financeiro 26/10/2026 x Imóveis.
+"""Motion design 20s — Mercado financeiro 26/10/2026 x Imóveis.
 Gera frames (PIL), efeitos sonoros sintetizados (numpy) e junta com ffmpeg.
-Uso: python3 render.py  ->  out/mercado_terra_15s.mp4
+Uso: python3 render.py  ->  out/mercado_imoveis_20s.mp4
 """
 import math, os, subprocess, wave
 from multiprocessing import Pool
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-W, H, FPS, DUR = 1080, 1920, 30, 15.0
+W, H, FPS, DUR = 1080, 1920, 30, 20.0
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out")
 FRAMES = os.path.join(OUT, "frames")
@@ -271,7 +271,7 @@ def s_contato(img, d, t, dur):
     text(d, (W / 2, 1340), "Proteja seu patrimônio com imóveis.", F(46, "Bold"), GREEN, p(t, .6, .9))
 
 # início de cada cena (s); a de imóveis fica mais longa para dar tempo de leitura
-T_DOL, T_IBV, T_TES, T_MOE, T_IMO, T_CON = 1.8, 4.5, 6.8, 8.7, 10.5, 13.7
+T_DOL, T_IBV, T_TES, T_MOE, T_IMO, T_CON = 2.4, 5.8, 9.0, 11.8, 14.5, 18.2
 SCENES = [(0.0, T_DOL, s_intro), (T_DOL, T_IBV, s_dolar), (T_IBV, T_TES, s_ibov), (T_TES, T_MOE, s_tesouro),
           (T_MOE, T_IMO, s_moeda), (T_IMO, T_CON, s_imoveis), (T_CON, DUR, s_contato)]
 IMPACTS = [T_DOL + 1.7, T_IBV + .8, T_TES + 1.13]  # tremor de câmera
@@ -402,7 +402,7 @@ if __name__ == "__main__":
     audio(wav)
     with Pool() as pool:
         pool.map(frame, range(int(FPS * DUR)))
-    mp4 = os.path.join(OUT, "mercado_terra_15s.mp4")
+    mp4 = os.path.join(OUT, "mercado_imoveis_20s.mp4")
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-framerate", str(FPS), "-i", os.path.join(FRAMES, "%04d.png"),
                     "-i", wav, "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18", "-preset", "slow",
                     "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", mp4], check=True)
