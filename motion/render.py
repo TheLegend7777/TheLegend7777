@@ -260,7 +260,17 @@ def s_imoveis(img, d, t, dur):
         text(d, (x0 + 60, y), s, F(52, "Bold"), WHITE, kk, "lm")
     text(d, (W / 2, 1680), "Uma das formas mais antigas de proteger patrimônio.", F(34, "SemiBold"), GRAY, p(t, 1.9, 2.2))
 
+_logo_big = None
 def s_contato(img, d, t, dur):
+    global _logo_big
+    if _logo_big is None:
+        _logo_big = Image.open(LOGO).convert("RGBA")
+    kl = eback(p(t, 0, .45))
+    if kl > 0:
+        sz = max(1, int(240 * kl))
+        lg = _logo_big.resize((sz, sz), Image.LANCZOS)
+        lg.putalpha(lg.split()[3].point(lambda v: int(v * p(t, 0, .2))))
+        img.paste(lg, (int(W / 2 - sz / 2), int(570 - sz / 2)), lg)
     k = eo(p(t, 0, .4))
     d.line([(W / 2 - 300 * k, 760), (W / 2 + 300 * k, 760)], fill=col(GREEN, 1), width=6)
     slide_text(d, W / 2, 880, "Pedro Bolivar", F(118), WHITE, t, .1)
@@ -308,7 +318,8 @@ def frame(i):
             amp = 18 * (1 - (t - ti) / .25)
             dx, dy = amp * math.sin(t * 90), amp * math.cos(t * 70)
             img = img.transform(img.size, Image.AFFINE, (1, 0, dx, 0, 1, dy), fillcolor=BG)
-    watermark(img)
+    if t < T_CON:  # na CTA o logo aparece grande, sem marca d'água
+        watermark(img)
     img.save(os.path.join(FRAMES, f"{i:04d}.png"), compress_level=1)
 
 # ---------- efeitos sonoros ----------
