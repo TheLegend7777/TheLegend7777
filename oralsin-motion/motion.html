@@ -5,123 +5,164 @@
 <title>OralSin Protocolo</title>
 <style>
   :root {
-    --green: #0C864D; --green-d: #075C34; --green-l: #E6F2ED; --mint: #75BA9A;
-    --red: #C94040; --red-l: #FBEAEA; --ink: #12332A; --gum: #E9879B; --gum-d: #C8607A;
-    --bone: #F2E2C4; --bone-d: #D9C29A; --metal: #AEB8BF; --metal-d: #7D8A93;
+    --brand: #30683D; --green: #1F8A3A; --bright: #46C15A; --green-d: #17592A; --green-l: #E4F2E6;
+    --red: #C94040; --red-l: #FBEAEA; --ink: #1B2B22; --bg: #ECEEEC;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #F5FAF7; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
   body { font-family: 'Inter', Arial, sans-serif; color: var(--ink); }
   #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden;
-    background: linear-gradient(180deg, #F7FBF9 0%, #EAF4EE 100%); }
+    background: radial-gradient(120% 80% at 50% 30%, #F7F8F7 0%, #E6E9E6 100%); }
   .abs { position: absolute; }
   .scene { position: absolute; inset: 0; }
-  .blob { position: absolute; border-radius: 50%;
-    background: radial-gradient(circle, rgba(117,186,154,.28) 0%, rgba(117,186,154,0) 70%); }
   .center { left: 0; width: 1080px; text-align: center; }
-  .h1 { font-weight: 900; font-size: 116px; letter-spacing: -3px; line-height: 1; }
   .h2 { font-weight: 800; font-size: 84px; letter-spacing: -2px; line-height: 1.05; }
-  .hl { display: inline-block; background: var(--green); color: #fff; padding: 18px 40px 26px;
-    border-radius: 28px; }
-  .hl-red { background: var(--red); }
-  .card { position: absolute; border-radius: 44px; background: #fff;
-    box-shadow: 0 24px 60px rgba(18,51,42,.13); overflow: hidden; }
-  .tag { font-weight: 800; font-size: 46px; letter-spacing: 2px; color: #fff; text-align: center; padding: 26px 0; }
+  /* título 3D no estilo dos stories da clínica */
+  .t3d { font-weight: 900; text-transform: uppercase; color: var(--bright); letter-spacing: -2px; line-height: .95;
+    text-shadow: 1px 1px 0 #2FA247, 2px 2px 0 #2C9A43, 3px 3px 0 #29923F, 4px 4px 0 #268A3B, 5px 5px 0 #238237,
+      6px 6px 0 #207A33, 7px 7px 0 #1D7230, 8px 8px 0 #1A6A2C, 9px 9px 0 #176229, 10px 10px 0 #145A26,
+      14px 18px 22px rgba(0,0,0,.28); }
+  .t3d.white { color: #fff; text-shadow: 1px 1px 0 #E1E8E3, 2px 2px 0 #D3DDD6, 3px 3px 0 #C5D2C9, 4px 4px 0 #B7C7BC,
+      5px 5px 0 #A9BCAF, 6px 6px 0 #9BB1A2, 7px 7px 0 #8DA695, 12px 16px 20px rgba(0,0,0,.3); }
+  .hl { display: inline-block; background: var(--green); color: #fff; padding: 16px 40px 24px; border-radius: 28px;
+    box-shadow: 0 14px 30px rgba(23,89,42,.3); }
+  .card { position: absolute; border-radius: 44px; background: #fff; box-shadow: 0 24px 60px rgba(27,43,34,.14); overflow: hidden; }
+  .card.frame { border: 7px solid var(--green); }
+  .tag { font-weight: 800; font-size: 46px; letter-spacing: 2px; color: #fff; text-align: center; padding: 24px 0; }
   .row { position: absolute; left: 60px; width: 960px; height: 360px; border-radius: 44px;
-    display: flex; align-items: center; gap: 40px; padding: 0 50px;
-    box-shadow: 0 20px 50px rgba(18,51,42,.12); }
+    display: flex; align-items: center; gap: 40px; padding: 0 50px; box-shadow: 0 20px 50px rgba(27,43,34,.12); }
   .row .lbl { font-weight: 800; font-size: 40px; letter-spacing: 3px; }
   .row .txt { font-weight: 800; font-size: 76px; letter-spacing: -2px; line-height: 1.02; margin-top: 8px; }
   .row.bad { background: var(--red-l); border: 6px solid #F0C4C4; }
   .row.bad .lbl { color: var(--red); }
-  .row.good { background: #fff; border: 6px solid var(--green); }
+  .row.good { background: #fff; border: 7px solid var(--green); }
   .row.good .lbl { color: var(--green); }
   .mark { flex: 0 0 170px; height: 170px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
   .pill { display: inline-flex; align-items: center; gap: 30px; background: #fff; border-radius: 120px;
-    padding: 20px 60px 20px 20px; box-shadow: 0 16px 40px rgba(18,51,42,.12); }
-  .pill .ic { width: 150px; height: 150px; border-radius: 50%; background: var(--green-l);
-    display: flex; align-items: center; justify-content: center; }
+    padding: 20px 60px 20px 20px; box-shadow: 0 16px 40px rgba(27,43,34,.12); }
+  .pill .ic { width: 150px; height: 150px; border-radius: 50%; background: var(--green-l); display: flex; align-items: center; justify-content: center; }
   .pill .t { font-weight: 900; font-size: 70px; letter-spacing: -1px; }
   .dots { display: flex; gap: 22px; justify-content: center; }
-  .dots i { display: block; width: 26px; height: 26px; border-radius: 50%; background: #C9DDD2; }
+  .dots i { display: block; width: 26px; height: 26px; border-radius: 50%; background: #C6D3CA; }
   .dots i.on { background: var(--green); width: 70px; border-radius: 13px; }
-  .cap { font-weight: 800; font-size: 66px; letter-spacing: -1px; }
-  #cta { background: var(--green); }
-  .phone { display: inline-flex; align-items: center; gap: 34px; background: #fff; color: var(--green-d);
+  .cap { font-weight: 800; font-size: 64px; letter-spacing: -1px; line-height: 1.1; }
+  #cta { background: linear-gradient(180deg, #2B8F44 0%, #1B6B31 100%); }
+  .phone { display: inline-flex; align-items: center; gap: 30px; background: #fff; color: var(--green-d);
     border-radius: 130px; padding: 30px 60px 30px 30px; box-shadow: 0 26px 60px rgba(0,0,0,.25); }
   .phone .num { font-weight: 900; font-size: 82px; letter-spacing: -2px; }
-  #wm { position: absolute; top: 96px; right: 48px; width: 230px; opacity: .9;
-    filter: drop-shadow(0 6px 14px rgba(0,0,0,.15)); }
-  #bar { position: absolute; top: 44px; left: 60px; width: 960px; height: 12px; border-radius: 6px; background: rgba(12,134,77,.15); overflow: hidden; }
+  .logoCard { background: #fff; border-radius: 40px; padding: 34px 44px; box-shadow: 0 24px 50px rgba(0,0,0,.18); }
+  #wm { position: absolute; top: 92px; right: 44px; width: 270px; padding: 12px 16px; border-radius: 20px; background: rgba(255,255,255,.88);
+    box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+  #wm img { width: 100%; display: block; }
+  #bar { position: absolute; top: 44px; left: 60px; width: 960px; height: 12px; border-radius: 6px; background: rgba(31,138,58,.15); overflow: hidden; }
   #bar i { display: block; height: 100%; background: var(--green); border-radius: 6px; }
+  .swoosh { position: absolute; left: 0; top: 0; }
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="gTooth" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".7" stop-color="#F3F6F7"/><stop offset="1" stop-color="#DCE3E6"/></linearGradient>
+    <linearGradient id="gToothSide" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".10"/><stop offset=".25" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="gGum" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6A9B4"/><stop offset="1" stop-color="#E27F90"/></linearGradient>
+    <linearGradient id="gGumBlock" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7AEB8"/><stop offset="1" stop-color="#EC8F9E"/></linearGradient>
+    <linearGradient id="gBone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6E5C6"/><stop offset=".75" stop-color="#EED8AE"/><stop offset="1" stop-color="#D8B98A"/></linearGradient>
+    <linearGradient id="gMetal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6D7880"/><stop offset=".3" stop-color="#F4F7F9"/><stop offset=".55" stop-color="#A9B4BB"/><stop offset=".8" stop-color="#D9E0E4"/><stop offset="1" stop-color="#5F6A72"/></linearGradient>
+    <radialGradient id="gCrown" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F1F4F6"/><stop offset="1" stop-color="#C9D2D8"/></radialGradient>
+  </defs>
+</svg>
 <div id="stage">
-  <div class="blob" id="b1" style="width:900px;height:900px;"></div>
-  <div class="blob" id="b2" style="width:700px;height:700px;"></div>
+  <svg class="swoosh" id="sw" width="1080" height="1920" viewBox="0 0 1080 1920">
+    <path d="M-200 520 C 200 260, 700 820, 1300 380" stroke="#fff" stroke-width="150" fill="none" opacity=".55" stroke-linecap="round"/>
+    <path d="M-200 1500 C 300 1180, 760 1760, 1300 1320" stroke="#fff" stroke-width="110" fill="none" opacity=".45" stroke-linecap="round"/>
+  </svg>
 
   <!-- CENA 1: gancho -->
   <div class="scene" id="s1">
-    <div class="abs center h2" id="s1a" style="top:330px">Você ainda usa</div>
-    <div class="abs center h1" id="s1b" style="top:450px"><span class="hl hl-red">DENTADURA?</span></div>
-    <div class="abs" id="s1ill" style="left:190px;top:780px;width:700px;height:330px"></div>
-    <div class="abs center h2" id="s1c" style="top:1220px">Existe uma opção</div>
-    <div class="abs center h1" id="s1d" style="top:1330px"><span class="hl">FIXA</span></div>
+    <div class="abs center h2" id="s1a" style="top:300px">Você ainda usa</div>
+    <div class="abs center t3d" id="s1b" style="top:430px;font-size:126px">Dentadura?</div>
+    <svg class="abs" id="s1svg" style="left:90px;top:700px" width="900" height="560" viewBox="0 0 900 560"></svg>
+    <div class="abs center h2" id="s1c" style="top:1280px">Existe uma solução</div>
+    <div class="abs center" id="s1d" style="top:1390px;font-weight:900;font-size:120px;letter-spacing:-3px"><span class="hl">FIXA</span></div>
   </div>
 
-  <!-- CENA 2: lado a lado -->
+  <!-- CENA 2: autoridade -->
   <div class="scene" id="s2">
-    <div class="abs center h2" id="s2t" style="top:250px">Veja a diferença</div>
-    <div class="card" id="s2l" style="left:50px;top:420px;width:470px;height:1000px">
-      <div class="tag" style="background:var(--red)">ANTES</div>
-      <div id="s2lill" style="position:absolute;left:35px;top:300px;width:400px;height:330px"></div>
-      <div class="abs center" style="width:470px;top:760px;font-weight:800;font-size:60px;line-height:1.05">Dentadura<br><span style="color:var(--red)">solta</span></div>
-    </div>
-    <div class="card" id="s2r" style="left:560px;top:420px;width:470px;height:1000px">
-      <div class="tag" style="background:var(--green)">DEPOIS</div>
-      <div id="s2rill" style="position:absolute;left:15px;top:200px;width:440px;height:520px"></div>
-      <div class="abs center" style="width:470px;top:760px;font-weight:800;font-size:60px;line-height:1.05">Protocolo<br><span style="color:var(--green)">fixo</span></div>
-    </div>
-    <div class="abs" id="s2vs" style="left:450px;top:1010px;width:180px;height:180px;border-radius:50%;background:var(--ink);color:#fff;font-weight:900;font-size:72px;display:flex;align-items:center;justify-content:center;border:10px solid #fff">VS</div>
+    <div class="abs center" id="s2logo" style="top:260px"><span class="logoCard" style="display:inline-block"><img src="logo.svg" style="width:560px;display:block"></span></div>
+    <svg class="abs" id="s2rays" style="left:90px;top:520px" width="900" height="600" viewBox="-450 -300 900 600"></svg>
+    <div class="abs center t3d" id="s2n" style="top:560px;font-size:360px;letter-spacing:-10px">Nº1</div>
+    <div class="abs center t3d" id="s2a" style="top:1000px;font-size:108px">em implantes</div>
+    <div class="abs center" id="s2b" style="top:1170px;font-weight:900;font-size:104px;letter-spacing:-2px"><span class="hl">DO BRASIL</span></div>
   </div>
 
-  <!-- CENA 3: comparativos -->
+  <!-- CENA 3: lado a lado -->
   <div class="scene" id="s3">
-    <div class="abs center" id="s3top" style="top:290px"><span class="pill"><span class="ic" id="s3ic"></span><span class="t" id="s3tt"></span></span></div>
-    <div class="row bad" id="s3bad" style="top:600px">
-      <div class="mark" style="background:var(--red)" id="s3x"></div>
-      <div><div class="lbl">DENTADURA</div><div class="txt" id="s3badt"></div></div>
+    <div class="abs center t3d" id="s3t" style="top:260px;font-size:90px">Veja a diferença</div>
+    <div class="card" id="s3l" style="left:50px;top:440px;width:470px;height:1000px">
+      <div class="tag" style="background:var(--red)">ANTES</div>
+      <svg id="s3lsvg" style="position:absolute;left:10px;top:180px" width="450" height="520" viewBox="0 0 900 1040"></svg>
+      <div class="abs center" style="width:470px;top:770px;font-weight:800;font-size:60px;line-height:1.05">Dentadura<br><span style="color:var(--red)">solta</span></div>
     </div>
-    <div class="row good" id="s3good" style="top:1010px">
-      <div class="mark" style="background:var(--green)" id="s3v"></div>
-      <div><div class="lbl">PROTOCOLO</div><div class="txt" id="s3goodt"></div></div>
+    <div class="card frame" id="s3r" style="left:560px;top:440px;width:470px;height:1000px">
+      <div class="tag" style="background:var(--green);margin:-7px -7px 0">DEPOIS</div>
+      <svg id="s3rsvg" style="position:absolute;left:3px;top:173px" width="450" height="520" viewBox="0 0 900 1040"></svg>
+      <div class="abs center" style="width:456px;top:763px;font-weight:800;font-size:60px;line-height:1.05">Protocolo<br><span style="color:var(--green)">fixo</span></div>
     </div>
-    <div class="abs center" style="top:1460px"><div class="dots" id="s3dots"><i></i><i></i><i></i><i></i></div></div>
+    <div class="abs" id="s3vs" style="left:450px;top:1060px;width:180px;height:180px;border-radius:50%;background:var(--ink);color:#fff;font-weight:900;font-size:72px;display:flex;align-items:center;justify-content:center;border:10px solid #fff">VS</div>
   </div>
 
-  <!-- CENA 4: como funciona -->
+  <!-- CENA 4: comparativos -->
   <div class="scene" id="s4">
-    <div class="abs center h2" id="s4t" style="top:250px">Como funciona?</div>
-    <svg class="abs" id="s4svg" style="left:90px;top:430px" width="900" height="760" viewBox="0 0 900 760"></svg>
-    <div class="abs center cap" id="s4c1" style="top:1260px"></div>
-    <div class="abs center cap" id="s4c2" style="top:1350px;color:var(--green)"></div>
+    <div class="abs center" id="s4top" style="top:290px"><span class="pill"><span class="ic" id="s4ic"></span><span class="t" id="s4tt"></span></span></div>
+    <div class="row bad" id="s4bad" style="top:600px">
+      <div class="mark" style="background:var(--red)" id="s4x"></div>
+      <div><div class="lbl">DENTADURA</div><div class="txt" id="s4badt"></div></div>
+    </div>
+    <div class="row good" id="s4good" style="top:1010px">
+      <div class="mark" style="background:var(--green)" id="s4v"></div>
+      <div><div class="lbl">PROTOCOLO</div><div class="txt" id="s4goodt"></div></div>
+    </div>
+    <div class="abs center" style="top:1460px"><div class="dots" id="s4dots"><i></i><i></i><i></i><i></i></div></div>
   </div>
 
-  <!-- CENA 5: CTA -->
+  <!-- CENA 5: como funciona o protocolo -->
+  <div class="scene" id="s5">
+    <div class="abs center t3d" id="s5t" style="top:240px;font-size:100px">Como funciona?</div>
+    <svg class="abs" id="s5svg" style="left:90px;top:340px" width="900" height="820" viewBox="0 0 900 820"></svg>
+    <div class="abs center cap" id="s5c1" style="top:1220px"></div>
+    <div class="abs center" id="s5c2" style="top:1330px;font-weight:900;font-size:72px;letter-spacing:-2px"><span class="hl">Não sai, não mexe!</span></div>
+  </div>
+
+  <!-- CENA 6: implante unitário -->
+  <div class="scene" id="s6">
+    <div class="abs center h2" id="s6t" style="top:250px">Perdeu só um dente?</div>
+    <div class="card frame" id="s6card" style="left:190px;top:400px;width:700px;height:820px;background:#F4F5F4">
+      <svg id="s6svg" style="position:absolute;left:0;top:0" width="686" height="806" viewBox="0 0 700 820"></svg>
+    </div>
+    <div class="abs center t3d" id="s6c1" style="top:1270px;font-size:96px">Implante unitário</div>
+    <div class="abs center cap" id="s6c2" style="top:1400px;color:var(--green-d)">Dente fixo, como o natural</div>
+  </div>
+
+  <!-- CTA -->
   <div class="scene" id="cta">
-    <div class="abs" id="ctaLogo" style="left:140px;top:250px;width:800px"><img src="logo.svg" style="width:800px;display:block;filter:drop-shadow(0 20px 40px rgba(0,0,0,.25));border-radius:50px;outline:8px solid rgba(255,255,255,.9)"></div>
-    <div class="abs center h2" id="ctaA" style="top:650px;color:#fff">Agende sua</div>
-    <div class="abs center h1" id="ctaB" style="top:760px"><span class="hl" style="background:#fff;color:var(--green-d)">AVALIAÇÃO</span></div>
-    <div class="abs" id="ctaRing" style="left:90px;top:1060px;width:900px;height:220px;border-radius:130px;border:8px solid #fff"></div>
-    <div class="abs center" id="ctaP" style="top:1060px"><span class="phone"><span id="phIc"></span><span class="num">(15) 99659-9212</span></span></div>
-    <div class="abs center" id="ctaArrow" style="top:1300px;color:#fff;font-weight:800;font-size:56px">Chame agora</div>
-    <div class="abs center" id="ctaI" style="top:1420px;color:#fff;font-weight:800;font-size:64px;display:flex;justify-content:center;align-items:center;gap:24px"><span id="igIc"></span>@oralsinitapetininga</div>
-    <div class="abs center" id="ctaC" style="top:1530px;color:var(--green-l);font-weight:600;font-size:46px">Itapetininga · SP</div>
+    <svg class="swoosh" width="1080" height="1920" viewBox="0 0 1080 1920">
+      <path d="M-200 700 C 200 420, 700 980, 1300 540" stroke="#fff" stroke-width="160" fill="none" opacity=".06" stroke-linecap="round"/>
+      <path d="M-200 1650 C 300 1330, 760 1900, 1300 1470" stroke="#fff" stroke-width="120" fill="none" opacity=".06" stroke-linecap="round"/>
+    </svg>
+    <div class="abs center" id="ctaLogo" style="top:200px"><span class="logoCard" style="display:inline-block;padding:44px 56px"><img src="logo.svg" style="width:700px;display:block"></span></div>
+    <div class="abs center" id="ctaN" style="top:540px"><span style="display:inline-flex;align-items:center;gap:18px;border:4px solid rgba(255,255,255,.85);border-radius:80px;padding:14px 40px;color:#fff;font-weight:800;font-size:50px">
+      <svg width="54" height="54" viewBox="0 0 100 100"><path d="M50 6 L62 37 L95 38 L69 58 L78 91 L50 72 L22 91 L31 58 L5 38 L38 37 Z" fill="#FFD54A"/></svg>Nº 1 em implantes do Brasil</span></div>
+    <div class="abs center h2" id="ctaA" style="top:690px;color:#fff">Agende sua</div>
+    <div class="abs center" id="ctaB" style="top:800px;font-weight:900;font-size:118px;letter-spacing:-3px"><span class="hl" style="background:#fff;color:var(--green-d)">AVALIAÇÃO</span></div>
+    <div class="abs" id="ctaRing" style="border-radius:130px;border:8px solid #fff"></div>
+    <div class="abs center" id="ctaP" style="top:1040px"><span class="phone"><span id="phIc"></span><span class="num">(15) 99659-9212</span></span></div>
+    <div class="abs center" id="ctaArrow" style="top:1270px;color:#fff;font-weight:800;font-size:56px">Chame agora</div>
+    <div class="abs center" id="ctaI" style="top:1370px;color:#fff;font-weight:800;font-size:62px;display:flex;justify-content:center;align-items:center;gap:22px"><span id="igIc"></span>@oralsinitapetininga</div>
+    <div class="abs center" id="ctaC" style="top:1470px;color:var(--green-l);font-weight:600;font-size:40px;line-height:1.35">Rua Dr. Virgílio de Rezende, 559 · Itapetininga/SP<br><span style="font-size:30px;opacity:.85">Resp. Técnica: Dra. Maiara de Almeida Pinto · CRO-SP 128470</span></div>
   </div>
 
   <div id="bar"><i id="barI"></i></div>
-  <img id="wm" src="logo.svg">
+  <div id="wm"><img src="logo.svg"></div>
 </div>
 
 <script>
@@ -132,86 +173,131 @@ const eOut = x => 1 - Math.pow(1 - x, 3);
 const eIn = x => x * x * x;
 const eIO = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 const eBack = x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const eBounce = x => { const n = 7.5625, d = 2.75;
+  if (x < 1 / d) return n * x * x; if (x < 2 / d) return n * (x -= 1.5 / d) * x + .75;
+  if (x < 2.5 / d) return n * (x -= 2.25 / d) * x + .9375; return n * (x -= 2.625 / d) * x + .984375; };
 function set(el, o = 1, x = 0, y = 0, s = 1, r = 0) {
   if (typeof el === 'string') el = $(el);
   el.style.opacity = o;
   el.style.transform = `translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`;
 }
-// pop: aparece em [a, a+d] com leve "back"; some em [b-d2, b]
-function pop(el, t, a, b, { d = .4, d2 = .3, dy = 60, sc = .85, exitY = -60 } = {}) {
+// aparece em [a, a+d] com leve "back"; some em [b-d2, b]
+function pop(el, t, a, b, { d = .4, d2 = .3, dy = 60, sc = .85, exitY = -60, r = 0 } = {}) {
   const i = pr(t, a, a + d), o = pr(t, b - d2, b);
   const vis = t >= a && t <= b;
-  const s = sc + (1 - sc) * eBack(i);
-  set(el, vis ? eOut(i) * (1 - eIn(o)) : 0, 0, dy * (1 - eOut(i)) + exitY * eIn(o), s);
+  set(el, vis ? eOut(i) * (1 - eIn(o)) : 0, 0, dy * (1 - eOut(i)) + exitY * eIn(o), sc + (1 - sc) * eBack(i), r);
 }
+const tr = (g, x, y, s = 1, r = 0, ox = 0, oy = 0) => g.setAttribute('transform', `translate(${x} ${y}) rotate(${r} ${ox} ${oy}) translate(${ox} ${oy}) scale(${s}) translate(${-ox} ${-oy})`);
 
-/* ---------- ilustrações SVG ---------- */
-function teeth(w, h, ox = 0, oy = 0) {
-  // arcada vista de frente: gengiva + 10 dentes
-  const n = 10, cx = ox + w / 2, y0 = x => oy + h * .34 + Math.pow((x - cx) / (w / 2), 2) * h * .16;
-  let gum = `M${ox} ${y0(ox) - h * .22} `;
-  for (let x = ox; x <= ox + w; x += w / 40) gum += `L${x} ${y0(x) - h * .26 + Math.pow((x - cx) / (w / 2), 2) * h * .05} `;
-  for (let x = ox + w; x >= ox; x -= w / 40) gum += `L${x} ${y0(x) + h * .04} `;
-  let s = `<path d="${gum}Z" fill="var(--gum)" stroke="var(--gum-d)" stroke-width="4" stroke-linejoin="round"/>`;
-  const ws = [.7, .8, .9, 1, 1.2, 1.2, 1, .9, .8, .7], tot = ws.reduce((a, b) => a + b);
-  let x = ox + w * .03; const usable = w * .94;
-  ws.forEach(k => {
-    const tw = usable * k / tot, mx = x + tw / 2, top = y0(mx) - h * .03, th = h * (.30 + .22 * k / 1.2);
-    s += `<rect x="${x + 2}" y="${top}" width="${tw - 4}" height="${th}" rx="${tw * .38}" fill="#fff" stroke="#CBD8D4" stroke-width="3"/>`;
-    s += `<rect x="${x + tw * .22}" y="${top + th * .18}" width="${tw * .16}" height="${th * .45}" rx="${tw * .08}" fill="#EEF4F2"/>`;
+/* ---------- ilustrações ---------- */
+// dente frontal: colo em baseY, coroa sobe até baseY - th
+function tooth(cx, baseY, tw, th) {
+  const l = cx - tw / 2, r = cx + tw / 2, top = baseY - th;
+  const d = `M${l + tw * .12} ${baseY + 8} L${l + tw * .02} ${top + th * .32} C${l} ${top + th * .04} ${l + tw * .2} ${top} ${cx} ${top}
+    C${r - tw * .2} ${top} ${r} ${top + th * .04} ${r - tw * .02} ${top + th * .32} L${r - tw * .12} ${baseY + 8} Z`;
+  return `<path d="${d}" fill="url(#gTooth)" stroke="#C8D3D8" stroke-width="3"/><path d="${d}" fill="url(#gToothSide)"/>
+    <path d="M${l + tw * .26} ${top + th * .16} Q${l + tw * .22} ${top + th * .45} ${l + tw * .3} ${top + th * .72}" stroke="#fff" stroke-width="${tw * .1}" stroke-linecap="round" fill="none" opacity=".95"/>`;
+}
+// prótese (dentes + gengiva artificial). baseY = linha do colo; flange vai de baseY até baseY+fh
+function prosthesis(cx, baseY, w, fh = 110, th = 175) {
+  const ws = [.78, .86, .92, 1, 1.12, 1.12, 1, .92, .86, .78], tot = ws.reduce((a, b) => a + b);
+  const x0 = cx - w / 2;
+  let flange = `<path d="M${x0 + 10} ${baseY - 10} Q${cx} ${baseY - 34} ${x0 + w - 10} ${baseY - 10} L${x0 + w} ${baseY + fh * .55}
+    Q${x0 + w} ${baseY + fh} ${x0 + w - 50} ${baseY + fh} L${x0 + 50} ${baseY + fh} Q${x0} ${baseY + fh} ${x0} ${baseY + fh * .55} Z" fill="url(#gGum)" stroke="#C9637A" stroke-width="4"/>`;
+  flange += `<path d="M${x0 + 40} ${baseY + fh * .62} Q${cx} ${baseY + fh * .78} ${x0 + w - 40} ${baseY + fh * .62}" stroke="#fff" stroke-opacity=".35" stroke-width="10" fill="none" stroke-linecap="round"/>`;
+  let teeth = '', pap = '', x = x0 + w * .02;
+  const usable = w * .96;
+  ws.forEach((k, i) => {
+    const tw = usable * k / tot, mx = x + tw / 2, dist = Math.abs(mx - cx) / (w / 2);
+    teeth += tooth(mx, baseY - dist * dist * 14, tw - 3, th * (.78 + .22 * k / 1.12) * (1 - dist * .12));
+    if (i > 0) pap += `<path d="M${x - 16} ${baseY + 6} Q${x} ${baseY - 40} ${x + 16} ${baseY + 6} Z" fill="#F2A0AD" stroke="#D9768A" stroke-width="2"/>`;
     x += tw;
   });
+  return flange + teeth + pap;
+}
+// bloco de gengiva + osso em corte
+function jaw(x, y, w, h, gumH = 80) {
+  let s = `<path d="M${x} ${y + 40} Q${x} ${y} ${x + 40} ${y} L${x + w - 40} ${y} Q${x + w} ${y} ${x + w} ${y + 40} L${x + w} ${y + h - 30} Q${x + w} ${y + h} ${x + w - 30} ${y + h} L${x + 30} ${y + h} Q${x} ${y + h} ${x} ${y + h - 30} Z" fill="url(#gGumBlock)" stroke="#D77E8E" stroke-width="4"/>`;
+  s += `<path d="M${x + 4} ${y + gumH} Q${x + w / 2} ${y + gumH + 26} ${x + w - 4} ${y + gumH} L${x + w - 4} ${y + h - 30} Q${x + w - 4} ${y + h - 4} ${x + w - 30} ${y + h - 4} L${x + 30} ${y + h - 4} Q${x + 4} ${y + h - 4} ${x + 4} ${y + h - 30} Z" fill="url(#gBone)"/>`;
+  [[.1, .55], [.27, .78], [.45, .5], [.64, .82], [.82, .6], [.93, .85], [.36, .9], [.72, .45], [.18, .9]].forEach(([a, b], i) =>
+    s += `<ellipse cx="${x + a * w}" cy="${y + gumH + (h - gumH) * b}" rx="${9 + i % 3 * 5}" ry="${6 + i % 2 * 4}" fill="#D2B283" opacity=".5"/>`);
   return s;
 }
-function implant(x, top, len, scale = 1) {
-  const w = 44 * scale, aw = 30 * scale, ah = 40 * scale;
-  let s = `<rect x="${x - aw / 2}" y="${top}" width="${aw}" height="${ah}" rx="${6 * scale}" fill="#D7DEE2" stroke="var(--metal-d)" stroke-width="${3 * scale}"/>`;
-  const by = top + ah;
-  s += `<path d="M${x - w / 2} ${by} L${x + w / 2} ${by} L${x + w * .36} ${by + len} Q${x} ${by + len + 26 * scale} ${x - w * .36} ${by + len} Z" fill="var(--metal)" stroke="var(--metal-d)" stroke-width="${3 * scale}"/>`;
-  for (let k = 1; k < 7; k++) {
-    const yy = by + len * k / 7, hw = w / 2 - (w * .14) * k / 7;
-    s += `<line x1="${x - hw}" y1="${yy}" x2="${x + hw}" y2="${yy - 9 * scale}" stroke="var(--metal-d)" stroke-width="${3 * scale}" stroke-linecap="round"/>`;
+// implante: topo do pilar em topY
+function abutment(cx, topY, s = 1, ghost = false) {
+  const aw = 44 * s, bw = 58 * s, ah = 62 * s;
+  const st = ghost ? `fill="url(#gMetal)" stroke="#fff" stroke-width="${4 * s}" stroke-dasharray="${8 * s} ${6 * s}"` : `fill="url(#gMetal)" stroke="#5F6A72" stroke-width="${3 * s}"`;
+  return `<path d="M${cx - aw / 2} ${topY + 6 * s} Q${cx - aw / 2} ${topY} ${cx - aw / 2 + 6 * s} ${topY} L${cx + aw / 2 - 6 * s} ${topY} Q${cx + aw / 2} ${topY} ${cx + aw / 2} ${topY + 6 * s} L${cx + bw / 2} ${topY + ah} L${cx - bw / 2} ${topY + ah} Z" ${st}/>`;
+}
+function implant(cx, topY, len, s = 1) {
+  const ah = 62 * s, cw = 66 * s, ch = 16 * s, core = 44 * s;
+  let g = abutment(cx, topY, s);
+  const cy = topY + ah;
+  g += `<rect x="${cx - cw / 2}" y="${cy}" width="${cw}" height="${ch}" rx="${4 * s}" fill="url(#gMetal)" stroke="#5F6A72" stroke-width="${3 * s}"/>`;
+  const by = cy + ch;
+  g += `<path d="M${cx - core / 2} ${by} L${cx + core / 2} ${by} L${cx + core * .36} ${by + len} Q${cx} ${by + len + 24 * s} ${cx - core * .36} ${by + len} Z" fill="url(#gMetal)" stroke="#5F6A72" stroke-width="${3 * s}"/>`;
+  const n = Math.floor(len / (17 * s));
+  for (let k = 0; k < n; k++) {
+    const yy = by + 8 * s + k * 17 * s, f = 1 - k / n * .32, tw = 64 * s * f;
+    g += `<rect x="${cx - tw / 2}" y="${yy}" width="${tw}" height="${8 * s}" rx="${4 * s}" fill="url(#gMetal)" stroke="#5F6A72" stroke-width="${2 * s}"/>`;
   }
-  return s;
+  return g;
 }
-function bone(x, y, w, h) {
-  let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="40" fill="var(--bone)" stroke="var(--bone-d)" stroke-width="4"/>`;
-  const pts = [[.12, .4], [.3, .7], [.5, .45], [.7, .75], [.88, .5], [.2, .85], [.62, .9], [.42, .78], [.8, .3]];
-  pts.forEach(([a, b], i) => s += `<ellipse cx="${x + a * w}" cy="${y + b * h}" rx="${10 + i % 3 * 5}" ry="${7 + i % 2 * 4}" fill="var(--bone-d)" opacity=".45"/>`);
-  return s;
+function crown(cx, ty, w = 250, h = 190) {
+  const d = `M${cx - w * .48} ${ty + h * .86} C${cx - w * .56} ${ty + h * .45} ${cx - w * .52} ${ty + h * .06} ${cx - w * .3} ${ty + h * .04}
+    C${cx - w * .14} ${ty} ${cx - w * .08} ${ty + h * .18} ${cx} ${ty + h * .18} C${cx + w * .08} ${ty + h * .18} ${cx + w * .14} ${ty} ${cx + w * .3} ${ty + h * .04}
+    C${cx + w * .52} ${ty + h * .06} ${cx + w * .56} ${ty + h * .45} ${cx + w * .48} ${ty + h * .86} C${cx + w * .3} ${ty + h * 1.02} ${cx - w * .3} ${ty + h * 1.02} ${cx - w * .48} ${ty + h * .86} Z`;
+  return `<path d="${d}" fill="url(#gCrown)" stroke="#BFC9CF" stroke-width="3"/>
+    <path d="M${cx - w * .3} ${ty + h * .25} Q${cx - w * .36} ${ty + h * .55} ${cx - w * .26} ${ty + h * .78}" stroke="#fff" stroke-width="${w * .07}" fill="none" stroke-linecap="round"/>`;
 }
-const svgWrap = (w, h, inner, id = '') => `<svg ${id ? `id="${id}"` : ''} width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="overflow:visible">${inner}</svg>`;
+const spark = (x, y, r, id) => `<g id="${id}" data-x="${x}" data-y="${y}" transform="translate(${x} ${y})"><path d="M0 ${-r} Q${r * .15} ${-r * .15} ${r} 0 Q${r * .15} ${r * .15} 0 ${r} Q${-r * .15} ${r * .15} ${-r} 0 Q${-r * .15} ${-r * .15} 0 ${-r} Z" fill="#FFD54A"/></g>`;
+function twinkle(id, t, v, speed = 3) {
+  const el = $(id); if (!el) return;
+  el.setAttribute('transform', `translate(${el.dataset.x} ${el.dataset.y}) scale(${v * (.75 + .3 * Math.sin(t * speed + +el.dataset.x))}) rotate(${t * 45})`);
+  el.style.opacity = v;
+}
 const ICON = {
   x: `<svg width="100" height="100" viewBox="0 0 100 100"><path d="M25 25 L75 75 M75 25 L25 75" stroke="#fff" stroke-width="16" stroke-linecap="round"/></svg>`,
   v: `<svg width="110" height="110" viewBox="0 0 100 100"><path id="chk" d="M20 52 L42 73 L82 30" fill="none" stroke="#fff" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="100" stroke-dashoffset="100"/></svg>`,
-  eat: `<svg width="96" height="96" viewBox="0 0 100 100" fill="none" stroke="#0C864D" stroke-width="8" stroke-linecap="round"><path d="M30 12 V44 M20 12 V36 Q20 46 30 46 Q40 46 40 36 V12 M30 46 V88"/><path d="M70 88 V12 Q84 24 84 50 Q84 56 70 56"/></svg>`,
-  lock: `<svg width="96" height="96" viewBox="0 0 100 100" fill="none" stroke="#0C864D" stroke-width="8" stroke-linejoin="round"><rect x="20" y="44" width="60" height="44" rx="10"/><path d="M32 44 V32 Q32 14 50 14 Q68 14 68 32 V44"/><circle cx="50" cy="66" r="6" fill="#0C864D"/></svg>`,
-  sun: `<svg width="96" height="96" viewBox="0 0 100 100" fill="none" stroke="#0C864D" stroke-width="8" stroke-linecap="round"><circle cx="50" cy="50" r="18"/><path d="M50 8V20M50 80V92M8 50H20M80 50H92M20 20L28 28M72 72L80 80M80 20L72 28M28 72L20 80"/></svg>`,
-  smile: `<svg width="96" height="96" viewBox="0 0 100 100" fill="none" stroke="#0C864D" stroke-width="8" stroke-linecap="round"><circle cx="50" cy="50" r="40"/><circle cx="36" cy="40" r="3" fill="#0C864D"/><circle cx="64" cy="40" r="3" fill="#0C864D"/><path d="M30 60 Q50 80 70 60"/></svg>`,
-  phone: `<svg width="110" height="110" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#0C864D"/><path d="M34 26 L42 24 L48 38 L42 43 Q47 54 57 59 L62 53 L76 59 L74 67 Q70 76 60 74 Q34 66 26 40 Q24 30 34 26 Z" fill="#fff"/></svg>`,
-  ig: `<svg width="76" height="76" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="9"><rect x="10" y="10" width="80" height="80" rx="24"/><circle cx="50" cy="50" r="18"/><circle cx="74" cy="26" r="4" fill="#fff"/></svg>`,
+  eat: `<svg width="96" height="96" viewBox="0 0 100 100" fill="none" stroke="#1F8A3A" stroke-width="8" stroke-linecap="round"><path d="M30 12 V44 M20 12 V36 Q20 46 30 46 Q40 46 40 36 V12 M30 46 V88"/><path d="M70 88 V12 Q84 24 84 50 Q84 56 70 56"/></svg>`,
+  lock: `<svg width="96" height="96" viewBox="0 0 100 100" fill="none" stroke="#1F8A3A" stroke-width="8" stroke-linejoin="round"><rect x="20" y="44" width="60" height="44" rx="10"/><path d="M32 44 V32 Q32 14 50 14 Q68 14 68 32 V44"/><circle cx="50" cy="66" r="6" fill="#1F8A3A"/></svg>`,
+  sun: `<svg width="96" height="96" viewBox="0 0 100 100" fill="none" stroke="#1F8A3A" stroke-width="8" stroke-linecap="round"><circle cx="50" cy="50" r="18"/><path d="M50 8V20M50 80V92M8 50H20M80 50H92M20 20L28 28M72 72L80 80M80 20L72 28M28 72L20 80"/></svg>`,
+  smile: `<svg width="96" height="96" viewBox="0 0 100 100" fill="none" stroke="#1F8A3A" stroke-width="8" stroke-linecap="round"><circle cx="50" cy="50" r="40"/><circle cx="36" cy="40" r="3" fill="#1F8A3A"/><circle cx="64" cy="40" r="3" fill="#1F8A3A"/><path d="M30 60 Q50 80 70 60"/></svg>`,
+  phone: `<svg width="110" height="110" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#1F8A3A"/><path d="M34 26 L42 24 L48 38 L42 43 Q47 54 57 59 L62 53 L76 59 L74 67 Q70 76 60 74 Q34 66 26 40 Q24 30 34 26 Z" fill="#fff"/></svg>`,
+  ig: `<svg width="72" height="72" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="9"><rect x="10" y="10" width="80" height="80" rx="24"/><circle cx="50" cy="50" r="18"/><circle cx="74" cy="26" r="4" fill="#fff"/></svg>`,
 };
-const spark = (x, y, r, id) => `<g id="${id}" transform="translate(${x} ${y})"><path d="M0 ${-r} Q${r * .15} ${-r * .15} ${r} 0 Q${r * .15} ${r * .15} 0 ${r} Q${-r * .15} ${r * .15} ${-r} 0 Q${-r * .15} ${-r * .15} 0 ${-r} Z" fill="#F5C842"/></g>`;
 
-// cena 1: dentadura sozinha
-$('s1ill').innerHTML = svgWrap(700, 330, `<g id="d1">${teeth(620, 300, 40, 10)}</g>
-  <g id="d1m" stroke="var(--red)" stroke-width="8" stroke-linecap="round" fill="none">
-    <path d="M8 120 Q-8 160 8 200"/><path d="M-22 100 Q-44 160 -22 220"/>
-    <path d="M692 120 Q708 160 692 200"/><path d="M722 100 Q744 160 722 220"/></g>`);
-// cena 2: esquerda dentadura, direita protocolo sobre implantes
-$('s2lill').innerHTML = svgWrap(400, 330, `<g id="d2">${teeth(340, 180, 30, 70)}</g>
-  <text id="d2q" x="350" y="40" font-family="Inter" font-weight="900" font-size="90" fill="var(--red)">!</text>`);
-$('s2rill').innerHTML = svgWrap(440, 520, `${bone(30, 300, 380, 200)}
-  ${implant(110, 200, 170, .9)}${implant(220, 190, 180, .9)}${implant(330, 200, 170, .9)}
-  <g>${teeth(400, 220, 20, 40)}</g>${spark(395, 50, 34, 'sp2a')}${spark(40, 120, 24, 'sp2b')}`);
-// cena 4: corte do maxilar
-const imX = [190, 360, 540, 710];
-$('s4svg').innerHTML = `${bone(40, 430, 820, 300)}
-  <rect x="40" y="390" width="820" height="90" rx="40" fill="var(--gum)" stroke="var(--gum-d)" stroke-width="4"/>
-  ${imX.map((x, i) => `<g id="im${i}">${implant(x, 340, 260, 1.2)}</g>`).join('')}
-  <g id="prot">${teeth(820, 420, 40, 60)}</g>
-  ${spark(820, 90, 44, 'sp4a')}${spark(70, 160, 30, 'sp4b')}${spark(470, 20, 26, 'sp4c')}`;
-$('s3x').innerHTML = ICON.x; $('s3v').innerHTML = ICON.v;
+// geometria comum do protocolo (coordenadas de um quadro 900 de largura)
+const IMX = [205, 375, 525, 695], JAW_Y = 560, ABUT_TOP = 478, BASE_Y = 440;
+function protocolSet(p) {
+  return `${jaw(40, JAW_Y, 820, 250)}
+    <g id="${p}imps">${IMX.map((x, i) => `<g id="${p}im${i}">${implant(x, ABUT_TOP, 150, 1.05)}</g>`).join('')}</g>
+    <g id="${p}prot">${prosthesis(450, BASE_Y, 820, 128)}</g>
+    <g id="${p}ghost">${IMX.map(x => abutment(x, ABUT_TOP, 1.05, true)).join('')}</g>
+    <g id="${p}locks" fill="none" stroke="#2FD15A" stroke-width="7">${IMX.map((x, i) => `<circle id="${p}lk${i}" cx="${x}" cy="${ABUT_TOP + 30}" r="40"/>`).join('')}</g>`;
+}
+
+// cena 1: dentadura solta sobre a gengiva
+$('s1svg').innerHTML = `${jaw(40, 300, 820, 220, 90)}<g id="s1prot">${prosthesis(450, 200, 820, 110)}</g>
+  <g id="s1m" stroke="var(--red)" stroke-width="9" stroke-linecap="round" fill="none">
+    <path d="M14 130 Q-6 170 14 210"/><path d="M-18 110 Q-44 170 -18 230"/><path d="M886 130 Q906 170 886 210"/><path d="M918 110 Q944 170 918 230"/></g>`;
+// cena 2: raios atrás do Nº1
+$('s2rays').innerHTML = `<g id="rays">${Array.from({ length: 16 }, (_, i) => `<path d="M0 0 L${Math.cos(i * Math.PI / 8 - .09) * 700} ${Math.sin(i * Math.PI / 8 - .09) * 700} L${Math.cos(i * Math.PI / 8 + .09) * 700} ${Math.sin(i * Math.PI / 8 + .09) * 700} Z" fill="#46C15A" opacity=".13"/>`).join('')}</g>
+  ${spark(-330, -170, 34, 'n1a')}${spark(350, -120, 44, 'n1b')}${spark(300, 210, 28, 'n1c')}${spark(-300, 190, 30, 'n1d')}`;
+// cena 3: antes (sem pinos, solta) x depois (presa nos pinos)
+$('s3lsvg').innerHTML = `${jaw(40, JAW_Y, 820, 250)}<g id="lprot">${prosthesis(450, BASE_Y, 820, 128)}</g>
+  <text id="lq" x="760" y="200" font-family="Inter" font-weight="900" font-size="170" fill="var(--red)">!</text>`;
+$('s3rsvg').innerHTML = protocolSet('r') + spark(800, 170, 50, 'rsa') + spark(110, 230, 34, 'rsb');
+// cena 5: montagem do protocolo
+$('s5svg').innerHTML = protocolSet('h') + spark(820, 140, 46, 'hsa') + spark(70, 200, 32, 'hsb') + spark(470, 90, 28, 'hsc');
+// cena 6: unitário (vizinhos + implante + pilar + coroa)
+$('s6svg').innerHTML = `${jaw(30, 470, 640, 330, 90)}
+  <g opacity=".6">${crown(120, 300, 210, 180)}</g><g opacity=".6">${crown(580, 300, 210, 180)}</g>
+  <g id="u_imp">${implant(350, 410, 230, 1.35).replace(/<path d="M[^"]*" fill="url\(#gMetal\)" stroke="#5F6A72" stroke-width="[^"]*"\/>/, '')}</g>
+  <g id="u_ab">${abutment(350, 410, 1.35)}</g>
+  <g id="u_cr">${crown(350, 245, 250, 200)}</g>
+  ${spark(560, 150, 40, 'usa')}${spark(150, 190, 28, 'usb')}`;
+$('s4x').innerHTML = ICON.x; $('s4v').innerHTML = ICON.v;
 $('phIc').innerHTML = ICON.phone; $('igIc').innerHTML = ICON.ig;
 
 const ITEMS = [
@@ -220,136 +306,148 @@ const ITEMS = [
   { ic: 'sun', tt: 'No dia a dia', bad: 'Precisa de<br>cola', good: 'Sem cola,<br>sem tirar' },
   { ic: 'smile', tt: 'Seu sorriso', bad: 'Vergonha de<br>sorrir', good: 'Sorri com<br>confiança' },
 ];
-const T = { s1: [0, 3.2], s2: [3.2, 7.5], s3: [7.5, 17.5], s4: [17.5, 23], cta: [23, 30] };
-const DUR = 30;
+const T = { s1: [0, 4.5], s2: [4.5, 8.5], s3: [8.5, 14], s4: [14, 28], s5: [28, 35.5], s6: [35.5, 39.5], cta: [39.5, 45] };
+const STEP = 3.5, DUR = 45;
 let lastItem = -1;
+const show = (id, on) => { $(id).style.display = on ? 'block' : 'none'; return on; };
+
+// protocolo: progresso de montagem (0 = só implantes, 1 = prótese assentada e travada)
+function protocolPose(p, t, land, lockT) {
+  $(p + 'prot').setAttribute('transform', `translate(0 ${-520 * (1 - eOut(land))})`);
+  $(p + 'prot').style.opacity = land > 0 ? 1 : 0;
+  const g = pr(t, lockT, lockT + .4);
+  $(p + 'ghost').style.opacity = .75 * g;
+  IMX.forEach((x, i) => {
+    const q = pr(t, lockT + i * .12, lockT + i * .12 + .6), c = $(p + 'lk' + i);
+    c.setAttribute('r', 30 + 50 * eOut(q));
+    c.style.opacity = q > 0 && q < 1 ? 1 - q : 0;
+  });
+}
 
 function draw(t) {
-  // fundo vivo
-  set('b1', 1, -250 + Math.sin(t * .5) * 80, 200 + Math.cos(t * .4) * 90);
-  set('b2', 1, 600 + Math.cos(t * .45) * 70, 1250 + Math.sin(t * .35) * 80);
+  $('sw').style.transform = `translate(${Math.sin(t * .3) * 40}px, ${Math.cos(t * .25) * 30}px)`;
   $('barI').style.width = (t / DUR * 100) + '%';
 
-  /* ---- CENA 1 ---- */
-  const on1 = t < T.s1[1];
-  $('s1').style.display = on1 ? 'block' : 'none';
-  if (on1) {
+  /* ---- 1: gancho ---- */
+  if (show('s1', t < T.s1[1])) {
     const e = T.s1[1];
     pop('s1a', t, .1, e, { dy: 50 });
-    pop('s1b', t, .4, e, { sc: .6, dy: 0 });
-    const ia = pr(t, .7, 1.1), wob = Math.sin(t * 9) * 5 * cl(pr(t, 1.0, 1.3)), slide = Math.sin(t * 6) * 18 * pr(t, 1, 1.3);
-    set('s1ill', eOut(ia) * (1 - pr(t, e - .3, e)), slide, 40 * (1 - eOut(ia)) - 60 * eIn(pr(t, e - .3, e)), 1, wob);
-    $('d1m').style.opacity = pr(t, 1.1, 1.3) * (0.5 + .5 * Math.sin(t * 14));
-    pop('s1c', t, 1.7, e, { dy: 40 });
-    pop('s1d', t, 2.0, e, { sc: .5, dy: 0 });
+    pop('s1b', t, .4, e, { sc: .5, dy: 0, r: -3 });
+    const ia = pr(t, .8, 1.2), ex = eIn(pr(t, e - .3, e));
+    set('s1svg', eOut(ia) * (1 - ex), 0, 40 * (1 - eOut(ia)) - 60 * ex);
+    const k = pr(t, 1.2, 1.5);
+    tr($('s1prot'), Math.sin(t * 7) * 14 * k, -Math.abs(Math.sin(t * 4)) * 45 * k, 1, Math.sin(t * 5.3) * 5 * k, 450, 300);
+    $('s1m').style.opacity = k * (.5 + .5 * Math.sin(t * 14));
+    pop('s1c', t, 2.4, e, { dy: 40 });
+    pop('s1d', t, 2.8, e, { sc: .4, dy: 0 });
   }
 
-  /* ---- CENA 2 ---- */
-  const on2 = t >= T.s2[0] && t < T.s2[1];
-  $('s2').style.display = on2 ? 'block' : 'none';
-  if (on2) {
-    const a = T.s2[0], e = T.s2[1], out = eIn(pr(t, e - .35, e));
-    pop('s2t', t, a + .05, e, { dy: 40 });
-    const li = eOut(pr(t, a + .2, a + .7)), ri = eOut(pr(t, a + .8, a + 1.3));
-    set('s2l', li * (1 - out), -500 * (1 - li) - 300 * out, 0);
-    set('s2r', ri * (1 - out), 500 * (1 - ri) + 300 * out, 0);
-    const vi = pr(t, a + 1.4, a + 1.8);
-    set('s2vs', t > a + 1.4 ? (1 - out) : 0, 0, 0, eBack(vi) * (1 - out * .5));
-    // dentadura escorrega
-    const g = document.getElementById('d2');
-    g.setAttribute('transform', `translate(${Math.sin(t * 7) * 10} ${Math.max(0, Math.sin(t * 3.5)) * 28}) rotate(${Math.sin(t * 5) * 5} 220 160)`);
-    $('d2q').style.opacity = .4 + .6 * Math.abs(Math.sin(t * 4));
-    ['sp2a', 'sp2b'].forEach((id, k) => {
-      const s = .6 + .5 * Math.abs(Math.sin(t * 3 + k * 1.7));
-      const base = $(id).getAttribute('transform').split(')')[0] + ')';
-      $(id).setAttribute('transform', `${base} scale(${s}) rotate(${t * 40})`);
-    });
+  /* ---- 2: Nº1 ---- */
+  if (show('s2', t >= T.s2[0] && t < T.s2[1])) {
+    const a = T.s2[0], e = T.s2[1];
+    pop('s2logo', t, a + .05, e, { dy: -40 });
+    const ni = pr(t, a + .45, a + .85), ex = eIn(pr(t, e - .3, e));
+    set('s2n', (t > a + .45 ? 1 : 0) * (1 - ex), 0, -60 * ex, (2.2 - 1.2 * eOut(ni)) * (1 - .3 * ex), -3);
+    set('s2rays', eOut(pr(t, a + .7, a + 1.1)) * (1 - ex), 0, 0, .6 + .4 * eOut(pr(t, a + .7, a + 1.1)));
+    $('rays').setAttribute('transform', `rotate(${t * 12})`);
+    ['n1a', 'n1b', 'n1c', 'n1d'].forEach((id, k) => twinkle(id, t, pr(t, a + .9 + k * .15, a + 1.2 + k * .15) * (1 - ex), 4));
+    pop('s2a', t, a + 1.1, e, { dy: 50, r: -3 });
+    pop('s2b', t, a + 1.5, e, { sc: .5, dy: 0 });
   }
 
-  /* ---- CENA 3 ---- */
-  const on3 = t >= T.s3[0] && t < T.s3[1];
-  $('s3').style.display = on3 ? 'block' : 'none';
-  if (on3) {
-    const i = Math.min(3, Math.floor((t - T.s3[0]) / 2.5)), a = T.s3[0] + i * 2.5, e = a + 2.5;
+  /* ---- 3: antes x depois ---- */
+  if (show('s3', t >= T.s3[0] && t < T.s3[1])) {
+    const a = T.s3[0], e = T.s3[1], out = eIn(pr(t, e - .35, e));
+    pop('s3t', t, a + .05, e, { dy: 40, r: -2 });
+    const li = eOut(pr(t, a + .3, a + .8)), ri = eOut(pr(t, a + 1.0, a + 1.5));
+    set('s3l', li * (1 - out), -500 * (1 - li) - 300 * out, 0);
+    set('s3r', ri * (1 - out), 500 * (1 - ri) + 300 * out, 0);
+    set('s3vs', t > a + 1.7 ? 1 - out : 0, 0, 0, eBack(pr(t, a + 1.7, a + 2.1)) * (1 - out * .5));
+    tr($('lprot'), Math.sin(t * 7) * 16, -Math.abs(Math.sin(t * 3.6)) * 60, 1, Math.sin(t * 5) * 6, 450, 500);
+    $('lq').style.opacity = .4 + .6 * Math.abs(Math.sin(t * 4));
+    protocolPose('r', t, 1, a + 2.4);
+    ['rsa', 'rsb'].forEach((id, k) => twinkle(id, t, pr(t, a + 2.6 + k * .2, a + 2.9 + k * .2)));
+  }
+
+  /* ---- 4: comparativos ---- */
+  if (show('s4', t >= T.s4[0] && t < T.s4[1])) {
+    const i = Math.min(3, Math.floor((t - T.s4[0]) / STEP)), a = T.s4[0] + i * STEP, e = a + STEP;
     if (i !== lastItem) {
       const it = ITEMS[i];
-      $('s3ic').innerHTML = ICON[it.ic]; $('s3tt').textContent = it.tt;
-      $('s3badt').innerHTML = it.bad; $('s3goodt').innerHTML = it.good;
-      [...$('s3dots').children].forEach((d, k) => d.className = k === i ? 'on' : '');
+      $('s4ic').innerHTML = ICON[it.ic]; $('s4tt').textContent = it.tt;
+      $('s4badt').innerHTML = it.bad; $('s4goodt').innerHTML = it.good;
+      [...$('s4dots').children].forEach((d, k) => d.className = k === i ? 'on' : '');
       lastItem = i;
     }
-    const outA = eIn(pr(t, e - .3, e));
-    const ti = pr(t, a, a + .35);
-    set('s3top', eOut(ti) * (1 - outA), 0, -40 * (1 - eOut(ti)), .9 + .1 * eBack(ti));
-    const bi = pr(t, a + .25, a + .6);
-    const shake = t > a + .6 && t < a + .9 ? Math.sin(t * 70) * 8 * (1 - pr(t, a + .6, a + .9)) : 0;
-    set('s3bad', eOut(bi) * (1 - outA), -700 * (1 - eOut(bi)) + shake - 900 * outA, 0);
-    const gi = pr(t, a + .95, a + 1.35);
-    const beat = 1 + .03 * Math.sin(pr(t, a + 1.35, a + 1.75) * Math.PI);
-    set('s3good', eOut(gi) * (1 - outA), 700 * (1 - eOut(gi)) - 900 * outA, 0, beat);
-    const chk = document.getElementById('chk');
-    if (chk) chk.setAttribute('stroke-dashoffset', 100 * (1 - eOut(pr(t, a + 1.2, a + 1.5))));
-    set('s3x', 1, 0, 0, .6 + .4 * eBack(pr(t, a + .45, a + .75)));
-    // a cena entra e sai inteira (antes do 1º e depois do 4º item)
-    set('s3dots', pr(t, T.s3[0], T.s3[0] + .3) * (1 - pr(t, T.s3[1] - .3, T.s3[1])));
+    const outA = eIn(pr(t, e - .3, e)), ti = pr(t, a, a + .35);
+    set('s4top', eOut(ti) * (1 - outA), 0, -40 * (1 - eOut(ti)), .9 + .1 * eBack(ti));
+    const bi = pr(t, a + .35, a + .7);
+    const shake = t > a + .7 && t < a + 1 ? Math.sin(t * 70) * 8 * (1 - pr(t, a + .7, a + 1)) : 0;
+    set('s4bad', eOut(bi) * (1 - outA), -700 * (1 - eOut(bi)) + shake - 900 * outA, 0);
+    const gi = pr(t, a + 1.2, a + 1.6);
+    const beat = 1 + .03 * Math.sin(pr(t, a + 1.6, a + 2) * Math.PI);
+    set('s4good', eOut(gi) * (1 - outA), 700 * (1 - eOut(gi)) - 900 * outA, 0, beat);
+    $('chk').setAttribute('stroke-dashoffset', 100 * (1 - eOut(pr(t, a + 1.45, a + 1.75))));
+    set('s4x', 1, 0, 0, .6 + .4 * eBack(pr(t, a + .55, a + .85)));
+    set('s4dots', pr(t, T.s4[0], T.s4[0] + .3) * (1 - pr(t, T.s4[1] - .3, T.s4[1])));
   }
 
-  /* ---- CENA 4 ---- */
-  const on4 = t >= T.s4[0] && t < T.s4[1];
-  $('s4').style.display = on4 ? 'block' : 'none';
-  if (on4) {
-    const a = T.s4[0], e = T.s4[1];
-    pop('s4t', t, a + .05, e, { dy: 40 });
-    set('s4svg', eOut(pr(t, a + .1, a + .5)) * (1 - pr(t, e - .3, e)), 0, 50 * (1 - eOut(pr(t, a + .1, a + .5))));
-    imX.forEach((x, k) => {
-      const s0 = a + .7 + k * .35, p = eOut(pr(t, s0, s0 + .3));
-      const g = $('im' + k);
-      g.setAttribute('transform', `translate(0 ${-420 * (1 - p)})`);
+  /* ---- 5: como funciona ---- */
+  if (show('s5', t >= T.s5[0] && t < T.s5[1])) {
+    const a = T.s5[0], e = T.s5[1], ex = eIn(pr(t, e - .3, e));
+    pop('s5t', t, a + .05, e, { dy: 40, r: -2 });
+    set('s5svg', eOut(pr(t, a + .15, a + .5)) * (1 - ex), 0, 50 * (1 - eOut(pr(t, a + .15, a + .5))) - 60 * ex);
+    IMX.forEach((x, k) => {
+      const s0 = a + .7 + k * .45, p = eOut(pr(t, s0, s0 + .35)), g = $('him' + k);
+      // desce girando levemente (efeito de rosca)
+      g.setAttribute('transform', `translate(${Math.sin((1 - p) * 18) * 4 * (1 - p)} ${-460 * (1 - p)})`);
       g.style.opacity = t > s0 ? 1 : 0;
     });
-    const pd = pr(t, a + 2.6, a + 3.1), land = eOut(pd);
-    const squash = t > a + 3.1 ? 1 - .03 * Math.sin(pr(t, a + 3.1, a + 3.4) * Math.PI) : 1;
-    $('prot').setAttribute('transform', `translate(0 ${-480 * (1 - land) - 30}) translate(450 300) scale(1 ${squash}) translate(-450 -300)`);
-    $('prot').style.opacity = t > a + 2.6 ? 1 : 0;
-    ['sp4a', 'sp4b', 'sp4c'].forEach((id, k) => {
-      const v = pr(t, a + 3.4 + k * .15, a + 3.7 + k * .15);
-      const base = $(id).getAttribute('transform').split(')')[0] + ')';
-      $(id).setAttribute('transform', `${base} scale(${eBack(v) * (.85 + .2 * Math.sin(t * 5 + k))}) rotate(${t * 45})`);
-      $(id).style.opacity = v;
-    });
-    const c1 = t < a + 2.5 ? '1. Implantes no osso' : '2. Dentes fixos por cima';
-    $('s4c1').textContent = c1;
-    const cs = t < a + 2.5 ? a + .6 : a + 2.6;
-    const ce = t < a + 2.5 ? a + 2.5 : e;
-    pop('s4c1', t, cs, ce, { dy: 30, d2: .2 });
-    $('s4c2').textContent = 'Firme como dente natural';
-    pop('s4c2', t, a + 3.6, e, { dy: 30 });
+    protocolPose('h', t, pr(t, a + 3.3, a + 3.9), a + 3.95);
+    ['hsa', 'hsb', 'hsc'].forEach((id, k) => twinkle(id, t, pr(t, a + 4.8 + k * .15, a + 5.1 + k * .15) * (1 - ex), 5));
+    const first = t < a + 3.2;
+    $('s5c1').innerHTML = first ? '1. Implantes fixados no osso' : '2. A prótese é <span style="color:var(--green)">presa nos pinos</span>';
+    pop('s5c1', t, first ? a + .7 : a + 3.3, first ? a + 3.2 : e, { dy: 30, d2: .25 });
+    pop('s5c2', t, a + 4.6, e, { sc: .5, dy: 0 });
+  }
+
+  /* ---- 6: implante unitário ---- */
+  if (show('s6', t >= T.s6[0] && t < T.s6[1])) {
+    const a = T.s6[0], e = T.s6[1], ex = eIn(pr(t, e - .3, e));
+    pop('s6t', t, a + .05, e, { dy: 40 });
+    set('s6card', eOut(pr(t, a + .15, a + .5)) * (1 - ex), 0, 50 * (1 - eOut(pr(t, a + .15, a + .5))) - 60 * ex);
+    const ab = pr(t, a + .7, a + 1.05), cr = pr(t, a + 1.35, a + 1.75);
+    $('u_ab').setAttribute('transform', `translate(0 ${-260 * (1 - eBounce(ab))})`);
+    $('u_ab').style.opacity = t > a + .7 ? 1 : 0;
+    $('u_cr').setAttribute('transform', `translate(0 ${-300 * (1 - eBounce(cr))})`);
+    $('u_cr').style.opacity = t > a + 1.35 ? 1 : 0;
+    ['usa', 'usb'].forEach((id, k) => twinkle(id, t, pr(t, a + 1.9 + k * .15, a + 2.2 + k * .15) * (1 - ex), 5));
+    pop('s6c1', t, a + .4, e, { dy: 40, r: -2 });
+    pop('s6c2', t, a + 2.0, e, { dy: 30 });
   }
 
   /* ---- CTA ---- */
-  const onC = t >= T.cta[0] - .5;
-  $('cta').style.display = onC ? 'block' : 'none';
-  if (onC) {
+  if (show('cta', t >= T.cta[0] - .5)) {
     const a = T.cta[0];
-    const r = eIO(pr(t, a - .5, a + .2)) * 1300;
-    $('cta').style.clipPath = `circle(${r}px at 540px 960px)`;
+    $('cta').style.clipPath = `circle(${eIO(pr(t, a - .5, a + .2)) * 1300}px at 540px 960px)`;
     const li = pr(t, a + .2, a + .7);
     set('ctaLogo', eOut(li), 0, -40 * (1 - eOut(li)), .7 + .3 * eBack(li));
-    pop('ctaA', t, a + .8, 99, { dy: 40 });
-    pop('ctaB', t, a + 1.1, 99, { sc: .6, dy: 0 });
-    const pi = pr(t, a + 1.7, a + 2.1);
+    pop('ctaN', t, a + .7, 99, { dy: 30 });
+    pop('ctaA', t, a + 1.0, 99, { dy: 40 });
+    pop('ctaB', t, a + 1.3, 99, { sc: .6, dy: 0 });
+    const pi = pr(t, a + 1.8, a + 2.2);
     const pulse = t > a + 2.6 ? 1 + .035 * Math.sin((t - a - 2.6) * Math.PI * 1.6) : 1;
     set('ctaP', eOut(pi), 0, 60 * (1 - eOut(pi)), (.7 + .3 * eBack(pi)) * pulse);
     const rp = ((t - a - 2.6) * .8) % 1;
     set('ctaRing', t > a + 2.6 ? (1 - rp) * .8 : 0, 0, 0, 1 + rp * .14);
     pop('ctaArrow', t, a + 2.4, 99, { dy: 30 });
     if (t > a + 2.8) set('ctaArrow', 1, 0, Math.sin((t - a) * 5) * 8);
-    pop('ctaI', t, a + 2.9, 99, { dy: 40 });
-    pop('ctaC', t, a + 3.3, 99, { dy: 30 });
+    pop('ctaI', t, a + 2.8, 99, { dy: 40 });
+    pop('ctaC', t, a + 3.2, 99, { dy: 30 });
   }
   // marca d'água some na CTA (lá o logo aparece grande)
   const wmO = 1 - pr(t, T.cta[0] - .4, T.cta[0]);
-  set('wm', .9 * wmO * pr(t, 0, .3));
+  set('wm', wmO * pr(t, 0, .3));
   $('bar').style.opacity = wmO;
 }
 // anel de pulso acompanha o tamanho real do botão
