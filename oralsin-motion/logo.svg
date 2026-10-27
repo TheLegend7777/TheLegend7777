@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 200" width="520" height="200">
+  <!-- Recriação provisória da marca Oral Sin. Substitua por logo oficial (mesmo nome de arquivo ou logo.png). -->
+  <rect x="0" y="0" width="520" height="200" rx="34" fill="#0C864D"/>
+  <path d="M38 150 C 70 60, 110 60, 120 100 S 160 150, 185 55" fill="none" stroke="#75BA9A" stroke-width="16" stroke-linecap="round"/>
+  <path d="M38 150 C 70 60, 110 60, 120 100 S 160 150, 185 55" fill="none" stroke="#E6F2ED" stroke-width="5" stroke-linecap="round"/>
+  <text x="205" y="112" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="78" fill="#FFFFFF" letter-spacing="-2">Oral Sin</text>
+  <text x="208" y="158" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="34" fill="#E6F2ED" letter-spacing="9">IMPLANTES</text>
+</svg>

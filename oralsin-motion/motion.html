@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>OralSin Protocolo</title>
+<style>
+  :root {
+    --green: #0C864D; --green-d: #075C34; --green-l: #E6F2ED; --mint: #75BA9A;
+    --red: #C94040; --red-l: #FBEAEA; --ink: #12332A; --gum: #E9879B; --gum-d: #C8607A;
+    --bone: #F2E2C4; --bone-d: #D9C29A; --metal: #AEB8BF; --metal-d: #7D8A93;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #F5FAF7; }
+  body { font-family: 'Inter', Arial, sans-serif; color: var(--ink); }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+    background: linear-gradient(180deg, #F7FBF9 0%, #EAF4EE 100%); }
+  .abs { position: absolute; }
+  .scene { position: absolute; inset: 0; }
+  .blob { position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(117,186,154,.28) 0%, rgba(117,186,154,0) 70%); }
+  .center { left: 0; width: 1080px; text-align: center; }
+  .h1 { font-weight: 900; font-size: 116px; letter-spacing: -3px; line-height: 1; }
+  .h2 { font-weight: 800; font-size: 84px; letter-spacing: -2px; line-height: 1.05; }
+  .hl { display: inline-block; background: var(--green); color: #fff; padding: 18px 40px 26px;
+    border-radius: 28px; }
+  .hl-red { background: var(--red); }
+  .card { position: absolute; border-radius: 44px; background: #fff;
+    box-shadow: 0 24px 60px rgba(18,51,42,.13); overflow: hidden; }
+  .tag { font-weight: 800; font-size: 46px; letter-spacing: 2px; color: #fff; text-align: center; padding: 26px 0; }
+  .row { position: absolute; left: 60px; width: 960px; height: 360px; border-radius: 44px;
+    display: flex; align-items: center; gap: 40px; padding: 0 50px;
+    box-shadow: 0 20px 50px rgba(18,51,42,.12); }
+  .row .lbl { font-weight: 800; font-size: 40px; letter-spacing: 3px; }
+  .row .txt { font-weight: 800; font-size: 76px; letter-spacing: -2px; line-height: 1.02; margin-top: 8px; }
+  .row.bad { background: var(--red-l); border: 6px solid #F0C4C4; }
+  .row.bad .lbl { color: var(--red); }
+  .row.good { background: #fff; border: 6px solid var(--green); }
+  .row.good .lbl { color: var(--green); }
+  .mark { flex: 0 0 170px; height: 170px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .pill { display: inline-flex; align-items: center; gap: 30px; background: #fff; border-radius: 120px;
+    padding: 20px 60px 20px 20px; box-shadow: 0 16px 40px rgba(18,51,42,.12); }
+  .pill .ic { width: 150px; height: 150px; border-radius: 50%; background: var(--green-l);
+    display: flex; align-items: center; justify-content: center; }
+  .pill .t { font-weight: 900; font-size: 70px; letter-spacing: -1px; }
+  .dots { display: flex; gap: 22px; justify-content: center; }
+  .dots i { display: block; width: 26px; height: 26px; border-radius: 50%; background: #C9DDD2; }
+  .dots i.on { background: var(--green); width: 70px; border-radius: 13px; }
+  .cap { font-weight: 800; font-size: 66px; letter-spacing: -1px; }
+  #cta { background: var(--green); }
+  .phone { display: inline-flex; align-items: center; gap: 34px; background: #fff; color: var(--green-d);
+    border-radius: 130px; padding: 30px 60px 30px 30px; box-shadow: 0 26px 60px rgba(0,0,0,.25); }
+  .phone .num { font-weight: 900; font-size: 82px; letter-spacing: -2px; }
+  #wm { position: absolute; top: 96px; right: 48px; width: 230px; opacity: .9;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,.15)); }
+  #bar { position: absolute; top: 44px; left: 60px; width: 960px; height: 12px; border-radius: 6px; background: rgba(12,134,77,.15); overflow: hidden; }
+  #bar i { display: block; height: 100%; background: var(--green); border-radius: 6px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="blob" id="b1" style="width:900px;height:900px;"></div>
+  <div class="blob" id="b2" style="width:700px;height:700px;"></div>
+
+  <!-- CENA 1: gancho -->
+  <div class="scene" id="s1">
+    <div class="abs center h2" id="s1a" style="top:330px">Você ainda usa</div>
+    <div class="abs center h1" id="s1b" style="top:450px"><span class="hl hl-red">DENTADURA?</span></div>
+    <div class="abs" id="s1ill" style="left:190px;top:780px;width:700px;height:330px"></div>
+    <div class="abs center h2" id="s1c" style="top:1220px">Existe uma opção</div>
+    <div class="abs center h1" id="s1d" style="top:1330px"><span class="hl">FIXA</span></div>
+  </div>
+
+  <!-- CENA 2: lado a lado -->
+  <div class="scene" id="s2">
+    <div class="abs center h2" id="s2t" style="top:250px">Veja a diferença</div>
+    <div class="card" id="s2l" style="left:50px;top:420px;width:470px;height:1000px">
+      <div class="tag" style="background:var(--red)">ANTES</div>
+      <div id="s2lill" style="position:absolute;left:35px;top:300px;width:400px;height:330px"></div>
+      <div class="abs center" style="width:470px;top:760px;font-weight:800;font-size:60px;line-height:1.05">Dentadura<br><span style="color:var(--red)">solta</span></div>
+    </div>
+    <div class="card" id="s2r" style="left:560px;top:420px;width:470px;height:1000px">
+      <div class="tag" style="background:var(--green)">DEPOIS</div>
+      <div id="s2rill" style="position:absolute;left:15px;top:200px;width:440px;height:520px"></div>
+      <div class="abs center" style="width:470px;top:760px;font-weight:800;font-size:60px;line-height:1.05">Protocolo<br><span style="color:var(--green)">fixo</span></div>
+    </div>
+    <div class="abs" id="s2vs" style="left:450px;top:1010px;width:180px;height:180px;border-radius:50%;background:var(--ink);color:#fff;font-weight:900;font-size:72px;display:flex;align-items:center;justify-content:center;border:10px solid #fff">VS</div>
+  </div>
+
+  <!-- CENA 3: comparativos -->
+  <div class="scene" id="s3">
+    <div class="abs center" id="s3top" style="top:290px"><span class="pill"><span class="ic" id="s3ic"></span><span class="t" id="s3tt"></span></span></div>
+    <div class="row bad" id="s3bad" style="top:600px">
+      <div class="mark" style="background:var(--red)" id="s3x"></div>
+      <div><div class="lbl">DENTADURA</div><div class="txt" id="s3badt"></div></div>
+    </div>
+    <div class="row good" id="s3good" style="top:1010px">
+      <div class="mark" style="background:var(--green)" id="s3v"></div>
+      <div><div class="lbl">PROTOCOLO</div><div class="txt" id="s3goodt"></div></div>
+    </div>
+    <div class="abs center" style="top:1460px"><div class="dots" id="s3dots"><i></i><i></i><i></i><i></i></div></div>
+  </div>
+
+  <!-- CENA 4: como funciona -->
+  <div class="scene" id="s4">
+    <div class="abs center h2" id="s4t" style="top:250px">Como funciona?</div>
+    <svg class="abs" id="s4svg" style="left:90px;top:430px" width="900" height="760" viewBox="0 0 900 760"></svg>
+    <div class="abs center cap" id="s4c1" style="top:1260px"></div>
+    <div class="abs center cap" id="s4c2" style="top:1350px;color:var(--green)"></div>
+  </div>
+
+  <!-- CENA 5: CTA -->
+  <div class="scene" id="cta">
+    <div class="abs" id="ctaLogo" style="left:140px;top:250px;width:800px"><img src="logo.svg" style="width:800px;display:block;filter:drop-shadow(0 20px 40px rgba(0,0,0,.25));border-radius:50px;outline:8px solid rgba(255,255,255,.9)"></div>
+    <div class="abs center h2" id="ctaA" style="top:650px;color:#fff">Agende sua</div>
+    <div class="abs center h1" id="ctaB" style="top:760px"><span class="hl" style="background:#fff;color:var(--green-d)">AVALIAÇÃO</span></div>
+    <div class="abs" id="ctaRing" style="left:90px;top:1060px;width:900px;height:220px;border-radius:130px;border:8px solid #fff"></div>
+    <div class="abs center" id="ctaP" style="top:1060px"><span class="phone"><span id="phIc"></span><span class="num">(15) 99659-9212</span></span></div>
+    <div class="abs center" id="ctaArrow" style="top:1300px;color:#fff;font-weight:800;font-size:56px">Chame agora</div>
+    <div class="abs center" id="ctaI" style="top:1420px;color:#fff;font-weight:800;font-size:64px;display:flex;justify-content:center;align-items:center;gap:24px"><span id="igIc"></span>@oralsinitapetininga</div>
+    <div class="abs center" id="ctaC" style="top:1530px;color:var(--green-l);font-weight:600;font-size:46px">Itapetininga · SP</div>
+  </div>
+
+  <div id="bar"><i id="barI"></i></div>
+  <img id="wm" src="logo.svg">
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const pr = (t, a, b) => cl((t - a) / (b - a));
+const eOut = x => 1 - Math.pow(1 - x, 3);
+const eIn = x => x * x * x;
+const eIO = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eBack = x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+function set(el, o = 1, x = 0, y = 0, s = 1, r = 0) {
+  if (typeof el === 'string') el = $(el);
+  el.style.opacity = o;
+  el.style.transform = `translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`;
+}
+// pop: aparece em [a, a+d] com leve "back"; some em [b-d2, b]
+function pop(el, t, a, b, { d = .4, d2 = .3, dy = 60, sc = .85, exitY = -60 } = {}) {
+  const i = pr(t, a, a + d), o = pr(t, b - d2, b);
+  const vis = t >= a && t <= b;
+  const s = sc + (1 - sc) * eBack(i);
+  set(el, vis ? eOut(i) * (1 - eIn(o)) : 0, 0, dy * (1 - eOut(i)) + exitY * eIn(o), s);
+}
+
+/* ---------- ilustrações SVG ---------- */
+function teeth(w, h, ox = 0, oy = 0) {
+  // arcada vista de frente: gengiva + 10 dentes
+  const n = 10, cx = ox + w / 2, y0 = x => oy + h * .34 + Math.pow((x - cx) / (w / 2), 2) * h * .16;
+  let gum = `M${ox} ${y0(ox) - h * .22} `;
+  for (let x = ox; x <= ox + w; x += w / 40) gum += `L${x} ${y0(x) - h * .26 + Math.pow((x - cx) / (w / 2), 2) * h * .05} `;
+  for (let x = ox + w; x >= ox; x -= w / 40) gum += `L${x} ${y0(x) + h * .04} `;
+  let s = `<path d="${gum}Z" fill="var(--gum)" stroke="var(--gum-d)" stroke-width="4" stroke-linejoin="round"/>`;
+  const ws = [.7, .8, .9, 1, 1.2, 1.2, 1, .9, .8, .7], tot = ws.reduce((a, b) => a + b);
+  let x = ox + w * .03; const usable = w * .94;
+  ws.forEach(k => {
+    const tw = usable * k / tot, mx = x + tw / 2, top = y0(mx) - h * .03, th = h * (.30 + .22 * k / 1.2);
+    s += `<rect x="${x + 2}" y="${top}" width="${tw - 4}" height="${th}" rx="${tw * .38}" fill="#fff" stroke="#CBD8D4" stroke-width="3"/>`;
+    s += `<rect x="${x + tw * .22}" y="${top + th * .18}" width="${tw * .16}" height="${th * .45}" rx="${tw * .08}" fill="#EEF4F2"/>`;
+    x += tw;
+  });
+  return s;
+}
+function implant(x, top, len, scale = 1) {
+  const w = 44 * scale, aw = 30 * scale, ah = 40 * scale;
+  let s = `<rect x="${x - aw / 2}" y="${top}" width="${aw}" height="${ah}" rx="${6 * scale}" fill="#D7DEE2" stroke="var(--metal-d)" stroke-width="${3 * scale}"/>`;
+  const by = top + ah;
+  s += `<path d="M${x - w / 2} ${by} L${x + w / 2} ${by} L${x + w * .36} ${by + len} Q${x} ${by + len + 26 * scale} ${x - w * .36} ${by + len} Z" fill="var(--metal)" stroke="var(--metal-d)" stroke-width="${3 * scale}"/>`;
+  for (let k = 1; k < 7; k++) {
+    const yy = by + len * k / 7, hw = w / 2 - (w * .14) * k / 7;
+    s += `<line x1="${x - hw}" y1="${yy}" x2="${x + hw}" y2="${yy - 9 * scale}" stroke="var(--metal-d)" stroke-width="${3 * scale}" stroke-linecap="round"/>`;
+  }
+  return s;
+}
+function bone(x, y, w, h) {
+  let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="40" fill="var(--bone)" stroke="var(--bone-d)" stroke-width="4"/>`;
+  const pts = [[.12, .4], [.3, .7], [.5, .45], [.7, .75], [.88, .5], [.2, .85], [.62, .9], [.42, .78], [.8, .3]];
+  pts.forEach(([a, b], i) => s += `<ellipse cx="${x + a * w}" cy="${y + b * h}" rx="${10 + i % 3 * 5}" ry="${7 + i % 2 * 4}" fill="var(--bone-d)" opacity=".45"/>`);
+  return s;
+}
+const svgWrap = (w, h, inner, id = '') => `<svg ${id ? `id="${id}"` : ''} width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="overflow:visible">${inner}</svg>`;
+const ICON = {
+  x: `<svg width="100" height="100" viewBox="0 0 100 100"><path d="M25 25 L75 75 M75 25 L25 75" stroke="#fff" stroke-width="16" stroke-linecap="round"/></svg>`,
+  v: `<svg width="110" height="110" viewBox="0 0 100 100"><path id="chk" d="M20 52 L42 73 L82 30" fill="none" stroke="#fff" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="100" stroke-dashoffset="100"/></svg>`,
+  eat: `<svg width="96" height="96" viewBox="0 0 100 100" fill="none" stroke="#0C864D" stroke-width="8" stroke-linecap="round"><path d="M30 12 V44 M20 12 V36 Q20 46 30 46 Q40 46 40 36 V12 M30 46 V88"/><path d="M70 88 V12 Q84 24 84 50 Q84 56 70 56"/></svg>`,
+  lock: `<svg width="96" height="96" viewBox="0 0 100 100" fill="none" stroke="#0C864D" stroke-width="8" stroke-linejoin="round"><rect x="20" y="44" width="60" height="44" rx="10"/><path d="M32 44 V32 Q32 14 50 14 Q68 14 68 32 V44"/><circle cx="50" cy="66" r="6" fill="#0C864D"/></svg>`,
+  sun: `<svg width="96" height="96" viewBox="0 0 100 100" fill="none" stroke="#0C864D" stroke-width="8" stroke-linecap="round"><circle cx="50" cy="50" r="18"/><path d="M50 8V20M50 80V92M8 50H20M80 50H92M20 20L28 28M72 72L80 80M80 20L72 28M28 72L20 80"/></svg>`,
+  smile: `<svg width="96" height="96" viewBox="0 0 100 100" fill="none" stroke="#0C864D" stroke-width="8" stroke-linecap="round"><circle cx="50" cy="50" r="40"/><circle cx="36" cy="40" r="3" fill="#0C864D"/><circle cx="64" cy="40" r="3" fill="#0C864D"/><path d="M30 60 Q50 80 70 60"/></svg>`,
+  phone: `<svg width="110" height="110" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#0C864D"/><path d="M34 26 L42 24 L48 38 L42 43 Q47 54 57 59 L62 53 L76 59 L74 67 Q70 76 60 74 Q34 66 26 40 Q24 30 34 26 Z" fill="#fff"/></svg>`,
+  ig: `<svg width="76" height="76" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="9"><rect x="10" y="10" width="80" height="80" rx="24"/><circle cx="50" cy="50" r="18"/><circle cx="74" cy="26" r="4" fill="#fff"/></svg>`,
+};
+const spark = (x, y, r, id) => `<g id="${id}" transform="translate(${x} ${y})"><path d="M0 ${-r} Q${r * .15} ${-r * .15} ${r} 0 Q${r * .15} ${r * .15} 0 ${r} Q${-r * .15} ${r * .15} ${-r} 0 Q${-r * .15} ${-r * .15} 0 ${-r} Z" fill="#F5C842"/></g>`;
+
+// cena 1: dentadura sozinha
+$('s1ill').innerHTML = svgWrap(700, 330, `<g id="d1">${teeth(620, 300, 40, 10)}</g>
+  <g id="d1m" stroke="var(--red)" stroke-width="8" stroke-linecap="round" fill="none">
+    <path d="M8 120 Q-8 160 8 200"/><path d="M-22 100 Q-44 160 -22 220"/>
+    <path d="M692 120 Q708 160 692 200"/><path d="M722 100 Q744 160 722 220"/></g>`);
+// cena 2: esquerda dentadura, direita protocolo sobre implantes
+$('s2lill').innerHTML = svgWrap(400, 330, `<g id="d2">${teeth(340, 180, 30, 70)}</g>
+  <text id="d2q" x="350" y="40" font-family="Inter" font-weight="900" font-size="90" fill="var(--red)">!</text>`);
+$('s2rill').innerHTML = svgWrap(440, 520, `${bone(30, 300, 380, 200)}
+  ${implant(110, 200, 170, .9)}${implant(220, 190, 180, .9)}${implant(330, 200, 170, .9)}
+  <g>${teeth(400, 220, 20, 40)}</g>${spark(395, 50, 34, 'sp2a')}${spark(40, 120, 24, 'sp2b')}`);
+// cena 4: corte do maxilar
+const imX = [190, 360, 540, 710];
+$('s4svg').innerHTML = `${bone(40, 430, 820, 300)}
+  <rect x="40" y="390" width="820" height="90" rx="40" fill="var(--gum)" stroke="var(--gum-d)" stroke-width="4"/>
+  ${imX.map((x, i) => `<g id="im${i}">${implant(x, 340, 260, 1.2)}</g>`).join('')}
+  <g id="prot">${teeth(820, 420, 40, 60)}</g>
+  ${spark(820, 90, 44, 'sp4a')}${spark(70, 160, 30, 'sp4b')}${spark(470, 20, 26, 'sp4c')}`;
+$('s3x').innerHTML = ICON.x; $('s3v').innerHTML = ICON.v;
+$('phIc').innerHTML = ICON.phone; $('igIc').innerHTML = ICON.ig;
+
+const ITEMS = [
+  { ic: 'eat', tt: 'Na hora de comer', bad: 'Difícil<br>mastigar', good: 'Come de<br>tudo' },
+  { ic: 'lock', tt: 'Firmeza', bad: 'Solta e<br>escorrega', good: 'Fixo,<br>não sai' },
+  { ic: 'sun', tt: 'No dia a dia', bad: 'Precisa de<br>cola', good: 'Sem cola,<br>sem tirar' },
+  { ic: 'smile', tt: 'Seu sorriso', bad: 'Vergonha de<br>sorrir', good: 'Sorri com<br>confiança' },
+];
+const T = { s1: [0, 3.2], s2: [3.2, 7.5], s3: [7.5, 17.5], s4: [17.5, 23], cta: [23, 30] };
+const DUR = 30;
+let lastItem = -1;
+
+function draw(t) {
+  // fundo vivo
+  set('b1', 1, -250 + Math.sin(t * .5) * 80, 200 + Math.cos(t * .4) * 90);
+  set('b2', 1, 600 + Math.cos(t * .45) * 70, 1250 + Math.sin(t * .35) * 80);
+  $('barI').style.width = (t / DUR * 100) + '%';
+
+  /* ---- CENA 1 ---- */
+  const on1 = t < T.s1[1];
+  $('s1').style.display = on1 ? 'block' : 'none';
+  if (on1) {
+    const e = T.s1[1];
+    pop('s1a', t, .1, e, { dy: 50 });
+    pop('s1b', t, .4, e, { sc: .6, dy: 0 });
+    const ia = pr(t, .7, 1.1), wob = Math.sin(t * 9) * 5 * cl(pr(t, 1.0, 1.3)), slide = Math.sin(t * 6) * 18 * pr(t, 1, 1.3);
+    set('s1ill', eOut(ia) * (1 - pr(t, e - .3, e)), slide, 40 * (1 - eOut(ia)) - 60 * eIn(pr(t, e - .3, e)), 1, wob);
+    $('d1m').style.opacity = pr(t, 1.1, 1.3) * (0.5 + .5 * Math.sin(t * 14));
+    pop('s1c', t, 1.7, e, { dy: 40 });
+    pop('s1d', t, 2.0, e, { sc: .5, dy: 0 });
+  }
+
+  /* ---- CENA 2 ---- */
+  const on2 = t >= T.s2[0] && t < T.s2[1];
+  $('s2').style.display = on2 ? 'block' : 'none';
+  if (on2) {
+    const a = T.s2[0], e = T.s2[1], out = eIn(pr(t, e - .35, e));
+    pop('s2t', t, a + .05, e, { dy: 40 });
+    const li = eOut(pr(t, a + .2, a + .7)), ri = eOut(pr(t, a + .8, a + 1.3));
+    set('s2l', li * (1 - out), -500 * (1 - li) - 300 * out, 0);
+    set('s2r', ri * (1 - out), 500 * (1 - ri) + 300 * out, 0);
+    const vi = pr(t, a + 1.4, a + 1.8);
+    set('s2vs', t > a + 1.4 ? (1 - out) : 0, 0, 0, eBack(vi) * (1 - out * .5));
+    // dentadura escorrega
+    const g = document.getElementById('d2');
+    g.setAttribute('transform', `translate(${Math.sin(t * 7) * 10} ${Math.max(0, Math.sin(t * 3.5)) * 28}) rotate(${Math.sin(t * 5) * 5} 220 160)`);
+    $('d2q').style.opacity = .4 + .6 * Math.abs(Math.sin(t * 4));
+    ['sp2a', 'sp2b'].forEach((id, k) => {
+      const s = .6 + .5 * Math.abs(Math.sin(t * 3 + k * 1.7));
+      const base = $(id).getAttribute('transform').split(')')[0] + ')';
+      $(id).setAttribute('transform', `${base} scale(${s}) rotate(${t * 40})`);
+    });
+  }
+
+  /* ---- CENA 3 ---- */
+  const on3 = t >= T.s3[0] && t < T.s3[1];
+  $('s3').style.display = on3 ? 'block' : 'none';
+  if (on3) {
+    const i = Math.min(3, Math.floor((t - T.s3[0]) / 2.5)), a = T.s3[0] + i * 2.5, e = a + 2.5;
+    if (i !== lastItem) {
+      const it = ITEMS[i];
+      $('s3ic').innerHTML = ICON[it.ic]; $('s3tt').textContent = it.tt;
+      $('s3badt').innerHTML = it.bad; $('s3goodt').innerHTML = it.good;
+      [...$('s3dots').children].forEach((d, k) => d.className = k === i ? 'on' : '');
+      lastItem = i;
+    }
+    const outA = eIn(pr(t, e - .3, e));
+    const ti = pr(t, a, a + .35);
+    set('s3top', eOut(ti) * (1 - outA), 0, -40 * (1 - eOut(ti)), .9 + .1 * eBack(ti));
+    const bi = pr(t, a + .25, a + .6);
+    const shake = t > a + .6 && t < a + .9 ? Math.sin(t * 70) * 8 * (1 - pr(t, a + .6, a + .9)) : 0;
+    set('s3bad', eOut(bi) * (1 - outA), -700 * (1 - eOut(bi)) + shake - 900 * outA, 0);
+    const gi = pr(t, a + .95, a + 1.35);
+    const beat = 1 + .03 * Math.sin(pr(t, a + 1.35, a + 1.75) * Math.PI);
+    set('s3good', eOut(gi) * (1 - outA), 700 * (1 - eOut(gi)) - 900 * outA, 0, beat);
+    const chk = document.getElementById('chk');
+    if (chk) chk.setAttribute('stroke-dashoffset', 100 * (1 - eOut(pr(t, a + 1.2, a + 1.5))));
+    set('s3x', 1, 0, 0, .6 + .4 * eBack(pr(t, a + .45, a + .75)));
+    // a cena entra e sai inteira (antes do 1º e depois do 4º item)
+    set('s3dots', pr(t, T.s3[0], T.s3[0] + .3) * (1 - pr(t, T.s3[1] - .3, T.s3[1])));
+  }
+
+  /* ---- CENA 4 ---- */
+  const on4 = t >= T.s4[0] && t < T.s4[1];
+  $('s4').style.display = on4 ? 'block' : 'none';
+  if (on4) {
+    const a = T.s4[0], e = T.s4[1];
+    pop('s4t', t, a + .05, e, { dy: 40 });
+    set('s4svg', eOut(pr(t, a + .1, a + .5)) * (1 - pr(t, e - .3, e)), 0, 50 * (1 - eOut(pr(t, a + .1, a + .5))));
+    imX.forEach((x, k) => {
+      const s0 = a + .7 + k * .35, p = eOut(pr(t, s0, s0 + .3));
+      const g = $('im' + k);
+      g.setAttribute('transform', `translate(0 ${-420 * (1 - p)})`);
+      g.style.opacity = t > s0 ? 1 : 0;
+    });
+    const pd = pr(t, a + 2.6, a + 3.1), land = eOut(pd);
+    const squash = t > a + 3.1 ? 1 - .03 * Math.sin(pr(t, a + 3.1, a + 3.4) * Math.PI) : 1;
+    $('prot').setAttribute('transform', `translate(0 ${-480 * (1 - land) - 30}) translate(450 300) scale(1 ${squash}) translate(-450 -300)`);
+    $('prot').style.opacity = t > a + 2.6 ? 1 : 0;
+    ['sp4a', 'sp4b', 'sp4c'].forEach((id, k) => {
+      const v = pr(t, a + 3.4 + k * .15, a + 3.7 + k * .15);
+      const base = $(id).getAttribute('transform').split(')')[0] + ')';
+      $(id).setAttribute('transform', `${base} scale(${eBack(v) * (.85 + .2 * Math.sin(t * 5 + k))}) rotate(${t * 45})`);
+      $(id).style.opacity = v;
+    });
+    const c1 = t < a + 2.5 ? '1. Implantes no osso' : '2. Dentes fixos por cima';
+    $('s4c1').textContent = c1;
+    const cs = t < a + 2.5 ? a + .6 : a + 2.6;
+    const ce = t < a + 2.5 ? a + 2.5 : e;
+    pop('s4c1', t, cs, ce, { dy: 30, d2: .2 });
+    $('s4c2').textContent = 'Firme como dente natural';
+    pop('s4c2', t, a + 3.6, e, { dy: 30 });
+  }
+
+  /* ---- CTA ---- */
+  const onC = t >= T.cta[0] - .5;
+  $('cta').style.display = onC ? 'block' : 'none';
+  if (onC) {
+    const a = T.cta[0];
+    const r = eIO(pr(t, a - .5, a + .2)) * 1300;
+    $('cta').style.clipPath = `circle(${r}px at 540px 960px)`;
+    const li = pr(t, a + .2, a + .7);
+    set('ctaLogo', eOut(li), 0, -40 * (1 - eOut(li)), .7 + .3 * eBack(li));
+    pop('ctaA', t, a + .8, 99, { dy: 40 });
+    pop('ctaB', t, a + 1.1, 99, { sc: .6, dy: 0 });
+    const pi = pr(t, a + 1.7, a + 2.1);
+    const pulse = t > a + 2.6 ? 1 + .035 * Math.sin((t - a - 2.6) * Math.PI * 1.6) : 1;
+    set('ctaP', eOut(pi), 0, 60 * (1 - eOut(pi)), (.7 + .3 * eBack(pi)) * pulse);
+    const rp = ((t - a - 2.6) * .8) % 1;
+    set('ctaRing', t > a + 2.6 ? (1 - rp) * .8 : 0, 0, 0, 1 + rp * .14);
+    pop('ctaArrow', t, a + 2.4, 99, { dy: 30 });
+    if (t > a + 2.8) set('ctaArrow', 1, 0, Math.sin((t - a) * 5) * 8);
+    pop('ctaI', t, a + 2.9, 99, { dy: 40 });
+    pop('ctaC', t, a + 3.3, 99, { dy: 30 });
+  }
+  // marca d'água some na CTA (lá o logo aparece grande)
+  const wmO = 1 - pr(t, T.cta[0] - .4, T.cta[0]);
+  set('wm', .9 * wmO * pr(t, 0, .3));
+  $('bar').style.opacity = wmO;
+}
+// anel de pulso acompanha o tamanho real do botão
+{ const b = document.querySelector('.phone').getBoundingClientRect(), r = $('ctaRing').style;
+  r.left = b.left + 'px'; r.top = b.top + 'px'; r.width = b.width + 'px'; r.height = b.height + 'px'; }
+window.draw = draw;
+window.DUR = DUR;
+draw(0);
+</script>
+</body>
+</html>
