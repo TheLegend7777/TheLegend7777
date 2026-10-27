@@ -10,7 +10,7 @@ Usa a paleta verde e o logo da OralSin, com títulos em 3D no estilo dos stories
 | `oralsin_protocolo_45s.mp4` | Vídeo final com efeitos sonoros |
 | `oralsin_protocolo_45s_sem_som.mp4` | Mesmo vídeo sem som |
 | `sfx.wav` | Trilha de efeitos separada, para mixar com a narração |
-| `logo.svg` | Logo OralSin vetorizado a partir de `assets/logo_original.jpg` |
+| `logo.png` | Logo oficial OralSin (fundo transparente, de `assets/logo_oficial.webp`) |
 | `motion.html` / `render.js` / `sfx.py` | Fonte da animação, render e efeitos |
 
 ## Tempos para a narração (sugestão de texto)
