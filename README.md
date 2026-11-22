@@ -15,9 +15,10 @@ class Legend:
             self.mostrar(lote)
             if cliente.diz("fechado"):
                 return "Contrato assinado ✅"
-
- except AttributeError:
+    except AttributeError:
         print("Acesso negado. Isso é confidencial. 🔒")
+
+
 
 <!---
 TheLegend7777/TheLegend7777 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
